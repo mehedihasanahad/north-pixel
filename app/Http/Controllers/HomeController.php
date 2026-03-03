@@ -23,6 +23,6 @@ class HomeController extends Controller
             ->orderBy('sort_order')
             ->get();
 
-        return view('welcome', compact('settings', 'products', 'categories'));
+        return view('pages.home', compact('settings', 'products', 'categories'));
     }
 }

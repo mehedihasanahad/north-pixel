@@ -1,0 +1,66 @@
+{{-- Sticky navbar — glass on scroll via Alpine --}}
+<header
+    x-data="{ scrolled: false }"
+    x-init="window.addEventListener('scroll', () => { scrolled = window.scrollY > 40 }, { passive: true })"
+    :class="scrolled ? 'glass shadow-lg shadow-black/30' : 'bg-transparent'"
+    class="fixed top-0 inset-x-0 z-50 transition-all duration-300"
+    role="banner"
+>
+    <nav class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between" aria-label="Main navigation">
+
+        {{-- Logo --}}
+        <a href="{{ route('home') }}" class="flex items-center gap-2.5 text-white font-bold text-lg shrink-0">
+            <span class="w-8 h-8 rounded-xl bg-gradient-to-br from-primary to-purple-500 flex items-center justify-center text-white text-sm font-black">
+                {{ strtoupper(substr($settings['site_name'] ?? config('app.name'), 0, 1)) }}
+            </span>
+            <span>{{ $settings['site_name'] ?? config('app.name') }}</span>
+        </a>
+
+        {{-- Desktop links --}}
+        <ul class="hidden lg:flex items-center gap-7" role="list">
+            <li><a href="{{ route('home') }}"  class="nav-link {{ request()->routeIs('home') ? 'active' : '' }}">{{ __('nav.home') }}</a></li>
+            <li><a href="/products"            class="nav-link {{ request()->is('products*') ? 'active' : '' }}">{{ __('nav.products') }}</a></li>
+            <li><a href="/custom-request"      class="nav-link {{ request()->is('custom*') ? 'active' : '' }}">{{ __('nav.custom') }}</a></li>
+            <li><a href="/about"               class="nav-link {{ request()->is('about') ? 'active' : '' }}">{{ __('nav.about') }}</a></li>
+            <li><a href="/contact"             class="nav-link {{ request()->is('contact') ? 'active' : '' }}">{{ __('nav.contact') }}</a></li>
+        </ul>
+
+        {{-- Right side --}}
+        <div class="hidden lg:flex items-center gap-3">
+            {{-- Language switch --}}
+            <form method="POST" action="{{ route('locale.switch', app()->getLocale() === 'en' ? 'bn' : 'en') }}">
+                @csrf
+                <button type="submit"
+                    class="flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-white/10 text-muted text-sm font-medium hover:border-primary/40 hover:text-white transition-all"
+                    title="{{ __('nav.lang_switch') }}"
+                >
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 010 20M12 2a15.3 15.3 0 000 20"/></svg>
+                    {{ __('nav.lang_switch') }}
+                </button>
+            </form>
+
+            @guest
+                <a href="/login"    class="nav-link text-sm">{{ __('nav.login') }}</a>
+                <a href="/register" class="btn-primary" style="padding:0.45rem 1.2rem;font-size:0.875rem">
+                    {{ __('nav.register') }}
+                    <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </a>
+            @endguest
+            @auth
+                <a href="/dashboard" class="btn-ghost" style="padding:0.45rem 1.2rem;font-size:0.875rem">{{ __('nav.dashboard') }}</a>
+            @endauth
+        </div>
+
+        {{-- Mobile hamburger --}}
+        <button
+            @click="$store.ui.openDrawer()"
+            class="lg:hidden p-2 rounded-lg text-muted hover:text-white hover:bg-white/5 transition"
+            aria-label="Open menu"
+            aria-expanded="false"
+        >
+            <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path d="M4 6h16M4 12h16M4 18h16"/>
+            </svg>
+        </button>
+    </nav>
+</header>

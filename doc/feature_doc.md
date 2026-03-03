@@ -51,38 +51,90 @@ An IT company website that showcases and sells **ready-made web applications** a
 ### 2.1 Confirmed Stack (Phase 1)
 | Layer | Technology | Rationale |
 |---|---|---|
-| Backend Framework | **Laravel 11** (PHP 8.2+) | Mature, batteries-included, Eloquent ORM |
+| Backend Framework | **Laravel 12** (PHP 8.2+) | Mature, batteries-included, Eloquent ORM |
 | Database | **MySQL 8.0+** InnoDB utf8mb4_unicode_ci | Production-proven, FULLTEXT search support |
-| Frontend (Blade) | **Laravel Blade** + **Alpine.js 3** | KISS — no build step for interactivity; CDN delivery |
+| Frontend (Blade) | **Laravel Blade** + **Alpine.js 3** (npm) | KISS — declarative interactivity, fully bundled |
 | Styling | **Tailwind CSS v4** (Vite plugin) | Utility-first, zero dead CSS, custom `@theme` tokens |
-| Animations | **GSAP 3 + ScrollTrigger** (CDN) | Industry standard, 60fps, tree-shakeable |
+| Animations | **GSAP 3 + ScrollTrigger** (npm) | Industry standard, 60fps, tree-shakeable |
 | Fonts | Google Fonts — Inter, Plus Jakarta Sans, Hind Siliguri | Variable fonts, subsetting via `display=swap` |
-| Asset pipeline | **Vite 7 + laravel-vite-plugin** | HMR, ESM, fast builds |
+| Asset pipeline | **Vite 7 + laravel-vite-plugin** | HMR, ESM, fast builds, multi-entry |
 | Auth | **Laravel Breeze** (email + password) | Minimal, auditable, extensible to OAuth Phase 2 |
 | Hosting | VPS + wildcard subdomain (`*.domain.com`) | Required for product preview architecture |
 
+> **No CDN policy:** All JS libraries (Alpine.js, GSAP) are installed via npm and bundled by Vite.
+> CDN availability is not guaranteed; bundling ensures 100% reliability and enables tree-shaking.
+
 ### 2.2 Frontend Engineering Principles
-- **DRY** — Blade components (`x-*`) for all repeated UI (cards, badges, buttons, modals)
-- **SOLID** — Single-responsibility: one Blade component per UI concern; controllers delegate to services
-- **KISS** — Alpine.js `x-data` for all interactive state (no bundled SPA framework on landing)
-- **Progressive Enhancement** — all critical content visible without JS; animations are additive
-- **Performance Budget** — Lighthouse ≥ 90; LCP < 2.5s; no render-blocking scripts (all `defer`)
+- **DRY** — Reusable Blade components in `resources/views/components/` for all repeated UI
+- **SOLID** — Single-responsibility: one Blade component per UI concern; controllers never contain display logic
+- **KISS** — Alpine.js global store (`Alpine.store('ui', {...})`) owns all shared state; no redundant event buses
+- **Progressive Enhancement** — all critical content visible without JS; animations are purely additive
+- **Performance Budget** — Lighthouse ≥ 90; LCP < 2.5s; `prefers-reduced-motion` respected site-wide
 
 ### 2.3 Animation Libraries & Usage
 | Library | Delivery | Usage |
 |---|---|---|
-| **GSAP 3** | CDN (`defer`) | Hero text reveal, stagger entrances, timeline sequences |
-| **GSAP ScrollTrigger** | CDN (`defer`) | Scroll-pinned sections, counter animations, parallax |
-| **Alpine.js 3** | CDN (`defer`) | Language toggle, mobile drawer, order modal, cat filter |
-| **Canvas API** (vanilla) | Inline | Hero particle field (no library dependency) |
+| **GSAP 3** | npm (bundled per-page) | Hero word reveal, stagger entrances, timeline sequences |
+| **GSAP ScrollTrigger** | npm (bundled per-page) | Counter animations, parallax, process line draw |
+| **Alpine.js 3** | npm (global bundle) | Language toggle, mobile drawer, order modal, product filter |
+| **Canvas API** (vanilla JS) | page-specific bundle | Hero particle field with connection lines |
 
-### 2.4 Code Quality Standards
+### 2.4 Code Architecture Standards
+```
+resources/
+  css/
+    app.css                — Global: Tailwind v4 @theme tokens + @layer components
+  js/
+    app.js                 — Global: Alpine npm init, Alpine.store, scroll helpers
+    bootstrap.js           — Global: Axios CSRF setup
+    pages/
+      home.js              — Home-only: GSAP, particles, tilt, magnetic
+      products.js          — Products page only (future)
+      [page].js            — One file per page, loaded via @push('scripts')
+  views/
+    layouts/
+      app.blade.php        — Master layout: @yield, @stack('styles'), @stack('scripts')
+    components/
+      nav.blade.php        — Sticky navbar (all pages)
+      mobile-drawer.blade.php
+      footer.blade.php
+      order-modal.blade.php
+      float-widget.blade.php
+      product-card.blade.php — Reusable card (DRY)
+    pages/
+      home.blade.php       — @extends('layouts.app')
+      products.blade.php   — @extends('layouts.app')
+      [page].blade.php
+```
+
+**Page-specific asset loading pattern:**
+```blade
+{{-- In any page view --}}
+@push('scripts')
+    @vite('resources/js/pages/home.js')
+@endpush
+```
+This ensures `home.js` (GSAP, particles) is only loaded on the home page, not every page.
+
+### 2.5 Code Quality Standards
 - PSR-12 PHP code style enforced via Laravel Pint
-- Blade views use Blade components for DRY rendering; no logic in views beyond display conditionals
-- All CSS in `resources/css/app.css` using `@layer base / components / utilities`
-- All JS in `resources/js/app.js` or inline `<script>` only for page-specific Alpine `x-data`
-- No inline `style=""` beyond dynamic values that cannot be expressed as Tailwind classes
+- Blade views: no business logic; display conditionals only
+- No CDN `<script>` or `<link>` tags — all third-party assets bundled via Vite
+- No inline `style=""` beyond dynamic values impossible to express as Tailwind classes
 - Environment secrets in `.env` only — never hardcoded in views or JS
+
+### 2.6 Brand System — Electric Violet + Gold
+| Token | Value | Usage |
+|---|---|---|
+| `--color-primary` | `#7C3AED` | Primary CTA, active states, focus rings |
+| `--color-primary-dim` | `#6D28D9` | Hover/pressed primary |
+| `--color-accent` | `#F59E0B` | Highlights, badges, counters, gold accents |
+| `--color-bg` | `#09090B` | Page background |
+| `--color-surface` | `#111118` | Cards, modals |
+| `--color-surface-2` | `#18181F` | Code blocks, secondary surfaces |
+| `--color-text` | `#F4F4F5` | Primary text |
+| `--color-muted` | `#A1A1AA` | Secondary text, placeholders |
+| Gradient brand | `135deg #7C3AED → #A855F7 → #F59E0B` | Headlines, borders, buttons, progress bar |
 
 ---
 
@@ -96,8 +148,9 @@ An IT company website that showcases and sells **ready-made web applications** a
 
 ### 3.2 Requirements
 - Language toggle visible on all pages (header)
-- Default language detection based on browser locale; fallback to English
-- All UI strings stored in locale JSON files (`/locales/en.json`, `/locales/bn.json`)
+- Language selection stored in session via `SetLocale` middleware; switch via `POST /locale/{locale}`
+- All UI strings stored in Laravel JSON translation files (`lang/en.json`, `lang/bn.json`)
+- Use `__('key')` in all Blade views — no hardcoded strings permitted in templates
 - Bangla font: **Hind Siliguri** or **Noto Sans Bengali** (Google Fonts)
 - English font: **Inter** or **Plus Jakarta Sans**
 - RTL/LTR: both languages are LTR — no directional switch required
@@ -110,8 +163,8 @@ An IT company website that showcases and sells **ready-made web applications** a
 
 ### 4.1 Visual Identity
 - **Style:** Modern, premium dark-themed with vibrant gradient accents
-- **Primary Palette:** Deep navy/black background (`#0A0A0F`, `#0D1117`) with electric blue, violet, and cyan gradients
-- **Accent Colors:** `#6366F1` (indigo), `#8B5CF6` (violet), `#06B6D4` (cyan), `#10B981` (emerald)
+- **Primary Palette:** Near-black background (`#09090B`, `#111118`) with Electric Violet + Gold gradients
+- **Brand Colors:** `#7C3AED` (electric violet primary), `#F59E0B` (amber gold accent), `#A855F7` (purple mid)
 - **Typography:** Bold, large headlines; clean body text
 - **Imagery:** High-quality product mockups, device frames, abstract tech visuals
 
