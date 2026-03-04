@@ -10,7 +10,7 @@
 
         {{-- Logo --}}
         <a href="{{ route('home') }}" class="shrink-0">
-            <img src="{{ asset('assets/images/logo.jpeg') }}" alt="{{ $settings['site_name'] ?? config('app.name') }}" class="h-10 w-auto rounded-xl object-contain">
+            <img src="{{ asset('assets/images/logo.jpeg') }}" alt="{{ $settings['site_name'] ?? config('app.name') }}" class="h-14 w-auto rounded-xl object-contain">
         </a>
 
         {{-- Desktop links --}}
