@@ -5,11 +5,8 @@
 
             {{-- Brand column --}}
             <div class="lg:col-span-2">
-                <a href="{{ route('home') }}" class="inline-flex items-center gap-2.5 text-white font-bold text-lg mb-4">
-                    <span class="w-9 h-9 rounded-xl bg-gradient-to-br from-primary to-purple-500 flex items-center justify-center text-white font-black">
-                        {{ strtoupper(substr($settings['site_name'] ?? config('app.name'), 0, 1)) }}
-                    </span>
-                    {{ $settings['site_name'] ?? config('app.name') }}
+                <a href="{{ route('home') }}" class="inline-flex mb-4">
+                    <img src="{{ asset('assets/images/logo.jpeg') }}" alt="{{ $settings['site_name'] ?? config('app.name') }}" class="h-12 w-auto rounded-xl object-contain">
                 </a>
                 <p class="text-muted text-sm leading-relaxed max-w-xs">
                     {{ __('footer.tagline') }}

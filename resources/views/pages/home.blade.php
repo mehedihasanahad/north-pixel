@@ -85,22 +85,6 @@
                     <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
                 </a>
             </div>
-
-            {{-- Trust line --}}
-            <div id="hero-trust" class="flex items-center justify-center lg:justify-start gap-3 mt-7">
-                <div class="flex -space-x-2">
-                    @foreach(['7C3AED','A855F7','F59E0B','6D28D9'] as $c)
-                    <div class="w-8 h-8 rounded-full border-2 border-bg flex items-center justify-center text-[10px] font-bold text-white"
-                         style="background:#{{ $c }}">
-                        {{ chr(rand(65,90)) }}
-                    </div>
-                    @endforeach
-                </div>
-                <p class="text-muted text-sm">
-                    <span class="text-white font-semibold">{{ $settings['clients_count'] ?? '500' }}+</span>
-                    {{ app()->getLocale() === 'bn' ? 'ক্লায়েন্ট আমাদের বিশ্বাস করেন' : 'clients trust us' }}
-                </p>
-            </div>
         </div>
 
         {{-- ── RIGHT: Visual mockup ── --}}
