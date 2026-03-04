@@ -9,6 +9,10 @@
     <title>@yield('title', $settings['site_name'] ?? config('app.name'))</title>
     <meta name="description" content="@yield('description', $settings['meta_description'] ?? '')">
 
+    <link rel="icon" type="image/jpeg" href="{{ asset('assets/images/logo.jpeg') }}">
+    <link rel="shortcut icon" href="{{ asset('assets/images/logo.jpeg') }}">
+    <link rel="apple-touch-icon" href="{{ asset('assets/images/logo.jpeg') }}">
+
     @yield('meta')
 
     {{-- Fonts --}}

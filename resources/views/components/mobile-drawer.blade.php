@@ -15,11 +15,8 @@
 >
     {{-- Header --}}
     <div class="flex items-center justify-between mb-8">
-        <a href="{{ route('home') }}" class="flex items-center gap-2 text-white font-bold text-base" @click="$store.ui.closeDrawer()">
-            <span class="w-7 h-7 rounded-lg bg-linear-to-br from-primary to-purple-500 flex items-center justify-center text-white text-xs font-black">
-                {{ strtoupper(substr($settings['site_name'] ?? config('app.name'), 0, 1)) }}
-            </span>
-            {{ $settings['site_name'] ?? config('app.name') }}
+        <a href="{{ route('home') }}" @click="$store.ui.closeDrawer()">
+            <img src="{{ asset('assets/images/logo.jpeg') }}" alt="{{ $settings['site_name'] ?? config('app.name') }}" class="h-9 w-auto rounded-lg object-contain">
         </a>
         <button @click="$store.ui.closeDrawer()"
             class="p-1.5 rounded-lg text-muted hover:text-white hover:bg-white/5 transition"

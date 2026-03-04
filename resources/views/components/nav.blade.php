@@ -9,11 +9,8 @@
     <nav class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between" aria-label="Main navigation">
 
         {{-- Logo --}}
-        <a href="{{ route('home') }}" class="flex items-center gap-2.5 text-white font-bold text-lg shrink-0">
-            <span class="w-8 h-8 rounded-xl bg-gradient-to-br from-primary to-purple-500 flex items-center justify-center text-white text-sm font-black">
-                {{ strtoupper(substr($settings['site_name'] ?? config('app.name'), 0, 1)) }}
-            </span>
-            <span>{{ $settings['site_name'] ?? config('app.name') }}</span>
+        <a href="{{ route('home') }}" class="shrink-0">
+            <img src="{{ asset('assets/images/logo.jpeg') }}" alt="{{ $settings['site_name'] ?? config('app.name') }}" class="h-10 w-auto rounded-xl object-contain">
         </a>
 
         {{-- Desktop links --}}

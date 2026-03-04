@@ -14,7 +14,7 @@
     "hero.headline_1": "Ship Your Business",
     "hero.headline_2": "Online —",
     "hero.headline_accent": "Today. Not Next Month.",
-    "hero.sub": "Skip months of development. Browse production-ready web apps, preview them live on real subdomains, and go live in days — fully built, fully yours.",
+    "hero.sub": "Skip months of development. Browse production-ready web apps, preview them live on real subdomains, and go live in one day — fully built, fully yours.",
     "hero.cta_primary": "Explore Products",
     "hero.cta_secondary": "Request a Custom Build",
     "hero.scroll_hint": "Scroll to explore",
@@ -48,7 +48,7 @@
     "process.step_2_desc": "Find your perfect match. Filter by category, tech stack, or budget. Every product is ready to ship.",
     "process.step_3_title": "Order in 60 Seconds",
     "process.step_3_desc": "One tap on WhatsApp or Messenger. We reply within minutes — no forms, no waiting rooms.",
-    "process.step_4_title": "Go Live in Days",
+    "process.step_4_title": "Go Live in One Day",
     "process.step_4_desc": "We set up, brand, and deploy your product. You get the keys — your business is live before your competitors blink.",
 
     "custom.section_label": "Custom Projects",
