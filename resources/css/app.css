@@ -475,6 +475,30 @@
     /* ── Particle canvas ── */
     #particle-canvas { position: absolute; inset: 0; pointer-events: none; }
 
+    /* ── Hero grid lines ── */
+    .hero-grid {
+        background-image:
+            linear-gradient(rgba(124,58,237,0.05) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(124,58,237,0.05) 1px, transparent 1px);
+        background-size: 60px 60px;
+        mask-image: radial-gradient(ellipse at 50% 0%, black 30%, transparent 75%);
+    }
+
+    /* ── Typewriter cursor ── */
+    .typewriter-cursor {
+        animation: twBlink 0.75s step-end infinite;
+        font-size: 1.1em;
+    }
+    @keyframes twBlink {
+        0%, 100% { opacity: 1; }
+        50%       { opacity: 0; }
+    }
+
+    /* ── Stat card number glow on reveal ── */
+    .stat-card.visible .stat-number {
+        text-shadow: 0 0 28px rgba(124,58,237,0.5);
+    }
+
     /* ── Marquee ── */
     .marquee-track {
         display: flex; gap: 3rem;

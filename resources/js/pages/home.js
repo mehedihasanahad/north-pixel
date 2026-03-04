@@ -3,7 +3,9 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 gsap.registerPlugin(ScrollTrigger);
 
-// ── Particle canvas ───────────────────────────────────────────
+// ─────────────────────────────────────────────────────────────
+// PARTICLES
+// ─────────────────────────────────────────────────────────────
 function initParticles() {
     const canvas = document.getElementById('particle-canvas');
     if (!canvas) return;
@@ -20,91 +22,145 @@ function initParticles() {
     function makeParticle() {
         const c = COLORS[Math.floor(Math.random() * COLORS.length)];
         return {
-            x:    Math.random() * W,
-            y:    Math.random() * H,
-            r:    Math.random() * 1.8 + 0.4,
-            vx:   (Math.random() - 0.5) * 0.4,
-            vy:   (Math.random() - 0.5) * 0.4,
-            color: c,
-            alpha: Math.random() * 0.5 + 0.15,
+            x: Math.random() * W, y: Math.random() * H,
+            r: Math.random() * 1.6 + 0.3,
+            vx: (Math.random() - 0.5) * 0.35,
+            vy: (Math.random() - 0.5) * 0.35,
+            color: c, alpha: Math.random() * 0.45 + 0.1,
         };
-    }
-
-    function init() {
-        resize();
-        particles = Array.from({ length: 90 }, makeParticle);
     }
 
     function draw() {
         ctx.clearRect(0, 0, W, H);
-
-        // Connection lines
         for (let i = 0; i < particles.length; i++) {
             for (let j = i + 1; j < particles.length; j++) {
                 const dx = particles[i].x - particles[j].x;
                 const dy = particles[i].y - particles[j].y;
                 const d  = Math.sqrt(dx * dx + dy * dy);
-                if (d < 120) {
+                if (d < 110) {
                     ctx.beginPath();
-                    ctx.strokeStyle = `rgba(124,58,237,${0.08 * (1 - d / 120)})`;
-                    ctx.lineWidth   = 0.6;
+                    ctx.strokeStyle = `rgba(124,58,237,${0.07 * (1 - d / 110)})`;
+                    ctx.lineWidth   = 0.5;
                     ctx.moveTo(particles[i].x, particles[i].y);
                     ctx.lineTo(particles[j].x, particles[j].y);
                     ctx.stroke();
                 }
             }
         }
-
-        // Dots
         particles.forEach(p => {
-            p.x += p.vx;
-            p.y += p.vy;
-            if (p.x < 0) p.x = W;
-            if (p.x > W) p.x = 0;
-            if (p.y < 0) p.y = H;
-            if (p.y > H) p.y = 0;
-
+            p.x += p.vx; p.y += p.vy;
+            if (p.x < 0) p.x = W; if (p.x > W) p.x = 0;
+            if (p.y < 0) p.y = H; if (p.y > H) p.y = 0;
             ctx.beginPath();
             ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
             ctx.fillStyle = p.color + p.alpha + ')';
             ctx.fill();
         });
-
         requestAnimationFrame(draw);
     }
 
-    init();
+    resize();
+    particles = Array.from({ length: 80 }, makeParticle);
     draw();
-    window.addEventListener('resize', () => { resize(); });
+    window.addEventListener('resize', resize);
 }
 
-// ── Hero GSAP animations ──────────────────────────────────────
+// ─────────────────────────────────────────────────────────────
+// HERO — set hidden state in JS, animate to visible
+// ─────────────────────────────────────────────────────────────
 function initHero() {
+    // 1. Set initial hidden state for every animated element
+    gsap.set([
+        '#hero-badge',
+        '.hero-word',
+        '#hero-sub',
+        '#hero-ctas',
+        '#hero-trust',
+        '#hero-visual',
+        '#hero-badge-live',
+        '#hero-badge-clients',
+        '#hero-scroll',
+    ], { opacity: 0, y: 24 });
+
+    gsap.set('#hero-visual', { y: 40 });
+    gsap.set(['#hero-badge-live', '#hero-badge-clients'], { scale: 0.8, y: 0 });
+
+    // 2. Build timeline — all `to` (animate TO visible)
     const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
 
-    tl.from('#hero-badge',    { y: 20, opacity: 0, duration: 0.6 })
-      .from('#hero-words .word', {
-          y: 60, opacity: 0, duration: 0.7, stagger: 0.08,
-      }, '-=0.2')
-      .from('#hero-sub',      { y: 20, opacity: 0, duration: 0.6 }, '-=0.3')
-      .from('#hero-ctas',     { y: 20, opacity: 0, duration: 0.6 }, '-=0.3')
-      .from('#hero-cards',    { y: 40, opacity: 0, duration: 0.8, stagger: 0.12 }, '-=0.4')
-      .from('#hero-scroll',   { opacity: 0, duration: 0.5 }, '-=0.2');
+    tl.to('#hero-badge', { opacity: 1, y: 0, duration: 0.55 }, 0.1)
+
+      .to('.hero-word', {
+          opacity: 1, y: 0,
+          duration: 0.65, stagger: 0.07,
+      }, 0.35)
+
+      .to('#hero-sub',   { opacity: 1, y: 0, duration: 0.55 }, '-=0.25')
+      .to('#hero-ctas',  { opacity: 1, y: 0, duration: 0.55 }, '-=0.35')
+      .to('#hero-trust', { opacity: 1, y: 0, duration: 0.45 }, '-=0.3')
+
+      // Visual slides in from right on desktop, from below on mobile
+      .to('#hero-visual', {
+          opacity: 1, y: 0, duration: 0.75, ease: 'power2.out',
+      }, 0.5)
+
+      .to('#hero-badge-live', {
+          opacity: 1, scale: 1, duration: 0.45, ease: 'back.out(2)',
+      }, 1.0)
+      .to('#hero-badge-clients', {
+          opacity: 1, scale: 1, duration: 0.45, ease: 'back.out(2)',
+      }, 1.15)
+
+      .to('#hero-scroll', { opacity: 1, y: 0, duration: 0.4 }, 1.3);
+
+    // 3. Gentle bob on floating badges (after entry)
+    tl.add(() => {
+        gsap.to('#hero-badge-live',    { y: -8, repeat: -1, yoyo: true, duration: 2.8, ease: 'sine.inOut' });
+        gsap.to('#hero-badge-clients', { y:  6, repeat: -1, yoyo: true, duration: 3.2, ease: 'sine.inOut', delay: 0.8 });
+        // Subtle pulse on the browser window
+        gsap.to('#hero-browser', { y: -6, repeat: -1, yoyo: true, duration: 4.0, ease: 'sine.inOut', delay: 0.4 });
+    });
 }
 
-// ── Stat counters ─────────────────────────────────────────────
+// ─────────────────────────────────────────────────────────────
+// TYPEWRITER — starts after headline words are visible
+// ─────────────────────────────────────────────────────────────
+function initTypewriter() {
+    const el     = document.getElementById('hero-typewriter');
+    const cursor = document.querySelector('.typewriter-cursor');
+    if (!el) return;
+
+    const text = el.dataset.text || '';
+
+    // Delay enough for word stagger to finish (words * 70ms + ~500ms buffer)
+    const delay = Math.max(1400, document.querySelectorAll('.hero-word').length * 70 + 500);
+
+    setTimeout(() => {
+        // Make the element visible
+        el.style.opacity = '1';
+        if (cursor) cursor.style.opacity = '1';
+
+        let i = 0;
+        function tick() {
+            el.textContent = text.slice(0, i);
+            i++;
+            if (i <= text.length) setTimeout(tick, 52 + Math.random() * 28);
+        }
+        tick();
+    }, delay);
+}
+
+// ─────────────────────────────────────────────────────────────
+// STAT COUNTERS
+// ─────────────────────────────────────────────────────────────
 function initStats() {
     document.querySelectorAll('[data-count]').forEach(el => {
         const target = parseInt(el.dataset.count, 10);
         ScrollTrigger.create({
-            trigger: el,
-            start:   'top 85%',
-            once:    true,
+            trigger: el, start: 'top 85%', once: true,
             onEnter: () => {
                 gsap.to({ val: 0 }, {
-                    val:      target,
-                    duration: 2,
-                    ease:     'power2.out',
+                    val: target, duration: 2, ease: 'power2.out',
                     onUpdate() { el.textContent = Math.round(this.targets()[0].val).toLocaleString(); },
                 });
             },
@@ -112,20 +168,17 @@ function initStats() {
     });
 }
 
-// ── Card 3D tilt ──────────────────────────────────────────────
+// ─────────────────────────────────────────────────────────────
+// 3D TILT (desktop only)
+// ─────────────────────────────────────────────────────────────
 function initTilt() {
+    if (window.matchMedia('(pointer:coarse)').matches) return; // skip on touch
     document.querySelectorAll('.tilt-card').forEach(card => {
         card.addEventListener('mousemove', e => {
             const { left, top, width, height } = card.getBoundingClientRect();
             const x = (e.clientX - left) / width  - 0.5;
             const y = (e.clientY - top)  / height - 0.5;
-            gsap.to(card, {
-                rotateY: x * 14,
-                rotateX: -y * 14,
-                transformPerspective: 900,
-                duration: 0.4,
-                ease: 'power2.out',
-            });
+            gsap.to(card, { rotateY: x * 12, rotateX: -y * 12, transformPerspective: 900, duration: 0.35, ease: 'power2.out' });
         });
         card.addEventListener('mouseleave', () => {
             gsap.to(card, { rotateX: 0, rotateY: 0, duration: 0.5, ease: 'power2.out' });
@@ -133,14 +186,19 @@ function initTilt() {
     });
 }
 
-// ── Magnetic buttons ──────────────────────────────────────────
+// ─────────────────────────────────────────────────────────────
+// MAGNETIC BUTTONS (desktop only)
+// ─────────────────────────────────────────────────────────────
 function initMagnetic() {
+    if (window.matchMedia('(pointer:coarse)').matches) return;
     document.querySelectorAll('.magnetic').forEach(btn => {
         btn.addEventListener('mousemove', e => {
-            const r   = btn.getBoundingClientRect();
-            const x   = (e.clientX - r.left - r.width  / 2) * 0.35;
-            const y   = (e.clientY - r.top  - r.height / 2) * 0.35;
-            gsap.to(btn, { x, y, duration: 0.3, ease: 'power2.out' });
+            const r = btn.getBoundingClientRect();
+            gsap.to(btn, {
+                x: (e.clientX - r.left - r.width  / 2) * 0.35,
+                y: (e.clientY - r.top  - r.height / 2) * 0.35,
+                duration: 0.3, ease: 'power2.out',
+            });
         });
         btn.addEventListener('mouseleave', () => {
             gsap.to(btn, { x: 0, y: 0, duration: 0.5, ease: 'elastic.out(1, 0.4)' });
@@ -148,58 +206,64 @@ function initMagnetic() {
     });
 }
 
-// ── Process timeline line draw ────────────────────────────────
+// ─────────────────────────────────────────────────────────────
+// PROCESS STEPS
+// ─────────────────────────────────────────────────────────────
 function initProcess() {
-    const steps = document.querySelectorAll('.process-step');
-    steps.forEach((step, i) => {
+    document.querySelectorAll('.process-step').forEach((step, i) => {
         ScrollTrigger.create({
-            trigger: step,
-            start:   'top 75%',
-            once:    true,
+            trigger: step, start: 'top 78%', once: true,
             onEnter: () => {
-                setTimeout(() => step.classList.add('revealed'), i * 200);
-                const fill = step.querySelector('.process-line-fill');
-                if (fill) gsap.to(fill, { width: '100%', duration: 0.8, ease: 'power2.inOut', delay: i * 0.2 });
+                setTimeout(() => step.classList.add('revealed'), i * 180);
+                const line = document.getElementById('process-line');
+                if (line) gsap.to(line, { width: '100%', duration: 0.9, ease: 'power2.inOut', delay: i * 0.18 });
             },
         });
     });
 }
 
-// ── Orb parallax ─────────────────────────────────────────────
+// ─────────────────────────────────────────────────────────────
+// ORB PARALLAX
+// ─────────────────────────────────────────────────────────────
 function initParallax() {
     document.querySelectorAll('[data-parallax]').forEach(el => {
         const speed = parseFloat(el.dataset.parallax) || 0.3;
         ScrollTrigger.create({
-            trigger: el.parentElement,
-            start:   'top bottom',
-            end:     'bottom top',
-            scrub:   true,
-            onUpdate: self => {
-                gsap.set(el, { y: self.progress * speed * 120 });
-            },
+            trigger: el.parentElement, start: 'top bottom', end: 'bottom top', scrub: true,
+            onUpdate: self => gsap.set(el, { y: self.progress * speed * 120 }),
         });
     });
 }
 
-// ── Testimonial stagger reveal ────────────────────────────────
+// ─────────────────────────────────────────────────────────────
+// TESTIMONIALS
+// ─────────────────────────────────────────────────────────────
 function initTestimonials() {
-    gsap.from('.testimonial-card', {
-        scrollTrigger: {
-            trigger: '#testimonials',
-            start:   'top 75%',
-        },
-        y: 50, opacity: 0, duration: 0.7,
-        stagger: 0.15, ease: 'power3.out',
+    const cards = gsap.utils.toArray('.testimonial-card');
+    if (!cards.length) return;
+    gsap.set(cards, { opacity: 0, y: 40 });
+    ScrollTrigger.create({
+        trigger: '#testimonials', start: 'top 78%', once: true,
+        onEnter: () => gsap.to(cards, { opacity: 1, y: 0, duration: 0.65, stagger: 0.14, ease: 'power3.out' }),
     });
 }
 
-// ── Init all ─────────────────────────────────────────────────
+// ─────────────────────────────────────────────────────────────
+// BOOT
+// ─────────────────────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', () => {
-    // Respect reduced motion
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    // Reduced motion — just show everything immediately
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        const tw = document.getElementById('hero-typewriter');
+        if (tw) { tw.textContent = tw.dataset.text ?? ''; tw.style.opacity = '1'; }
+        document.querySelectorAll('.testimonial-card').forEach(c => c.style.opacity = '1');
+        return;
+    }
 
     initParticles();
     initHero();
+    initTypewriter();
     initStats();
     initTilt();
     initMagnetic();

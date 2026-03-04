@@ -1,11 +1,13 @@
 {{-- Mobile navigation drawer --}}
 <div id="mobile-overlay"
+    x-data
     :class="$store.ui.drawerOpen ? 'open' : ''"
     @click="$store.ui.closeDrawer()"
     aria-hidden="true"
 ></div>
 
 <aside id="mobile-drawer"
+    x-data
     :class="$store.ui.drawerOpen ? 'open' : ''"
     role="dialog"
     aria-modal="true"
@@ -14,7 +16,7 @@
     {{-- Header --}}
     <div class="flex items-center justify-between mb-8">
         <a href="{{ route('home') }}" class="flex items-center gap-2 text-white font-bold text-base" @click="$store.ui.closeDrawer()">
-            <span class="w-7 h-7 rounded-lg bg-gradient-to-br from-primary to-purple-500 flex items-center justify-center text-white text-xs font-black">
+            <span class="w-7 h-7 rounded-lg bg-linear-to-br from-primary to-purple-500 flex items-center justify-center text-white text-xs font-black">
                 {{ strtoupper(substr($settings['site_name'] ?? config('app.name'), 0, 1)) }}
             </span>
             {{ $settings['site_name'] ?? config('app.name') }}
