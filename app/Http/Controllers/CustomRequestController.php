@@ -38,6 +38,8 @@ class CustomRequestController extends Controller
             }
         }
 
+        $data['user_id'] = auth()->id();
+
         CustomRequest::create($data);
 
         return redirect()->route('custom-request.success');

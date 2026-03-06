@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class CustomRequest extends Model
 {
     protected $fillable = [
-        'name', 'email', 'phone', 'project_type',
+        'user_id', 'name', 'email', 'phone', 'project_type',
         'project_description', 'budget', 'deadline',
         'preferred_contact', 'reference_links', 'message',
         'status', 'admin_notes',
