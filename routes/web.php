@@ -5,6 +5,7 @@ use App\Http\Controllers\LocaleController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CustomRequestController;
+use App\Http\Controllers\ContactController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -16,6 +17,9 @@ Route::get('/products/{slug}', [ProductController::class, 'show'])->name('produc
 Route::get('/custom-request', [CustomRequestController::class, 'index'])->name('custom-request');
 Route::post('/custom-request', [CustomRequestController::class, 'store'])->name('custom-request.store');
 Route::get('/custom-request/success', [CustomRequestController::class, 'success'])->name('custom-request.success');
+
+Route::get('/contact', [ContactController::class, 'index'])->name('contact');
+Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
