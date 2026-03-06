@@ -15,11 +15,14 @@
     {{-- Holographic shimmer layer --}}
     <div class="holographic" aria-hidden="true"></div>
 
-    {{-- Thumbnail (link to detail) --}}
-    <a href="{{ route('products.show', $product->slug) }}" class="relative aspect-video bg-surface-2 overflow-hidden block" aria-label="{{ $title }}">
+    {{-- Thumbnail — fixed aspect ratio, always same height --}}
+    <a href="{{ route('products.show', $product->slug) }}"
+       class="relative block w-full overflow-hidden bg-surface-2 shrink-0"
+       style="padding-top: 56.25%"
+       aria-label="{{ $title }}">
         @if($product->thumbnail_url)
             <img src="{{ $product->thumbnail_url }}" alt="{{ $title }}"
-                 class="w-full h-full object-cover transition duration-500 group-hover:scale-105"
+                 class="absolute inset-0 w-full h-full object-cover transition duration-500 group-hover:scale-105"
                  loading="lazy">
         @else
             <div class="absolute inset-0 flex items-center justify-center shimmer">
@@ -43,39 +46,42 @@
         </div>
     </a>
 
-    {{-- Body --}}
+    {{-- Body — flex-1 so all cards stretch to same height in a row --}}
     <div class="flex flex-col flex-1 p-5">
-        {{-- Category --}}
-        @if($catName)
-            <span class="text-xs text-primary font-semibold uppercase tracking-wide mb-2">{{ $catName }}</span>
-        @endif
 
-        {{-- Title (link to detail) --}}
+        {{-- Category — fixed 1-line height --}}
+        <p class="text-xs text-primary font-semibold uppercase tracking-wide truncate mb-1.5 h-4">
+            {{ $catName ?? '&nbsp;' }}
+        </p>
+
+        {{-- Title — always 2 lines, ellipsis on overflow --}}
         <a href="{{ route('products.show', $product->slug) }}"
-           class="font-bold text-white text-base leading-snug mb-2 line-clamp-2 hover:text-primary/90 transition {{ app()->getLocale() === 'bn' ? 'bn' : '' }}">
+           class="font-bold text-white text-base leading-snug hover:text-primary/90 transition line-clamp-2 mb-2 {{ app()->getLocale() === 'bn' ? 'bn' : '' }}"
+           style="min-height: 2.75rem">
             {{ $title }}
         </a>
 
-        {{-- Description --}}
-        <p class="text-muted text-sm leading-relaxed line-clamp-2 mb-4 {{ app()->getLocale() === 'bn' ? 'bn' : '' }}">
+        {{-- Description — always 2 lines, ellipsis on overflow --}}
+        <p class="text-muted text-sm leading-relaxed line-clamp-2 mb-4 {{ app()->getLocale() === 'bn' ? 'bn' : '' }}"
+           style="min-height: 2.5rem">
             {{ $desc }}
         </p>
 
-        {{-- Tech stack pills --}}
-        @if($product->techStack->count())
-            <div class="flex flex-wrap gap-1.5 mb-4">
+        {{-- Tech stack pills — fixed 1-row height, overflow hidden --}}
+        <div class="flex flex-wrap gap-1.5 mb-4 overflow-hidden" style="max-height: 1.75rem">
+            @if($product->techStack->count())
                 @foreach($product->techStack->take(4) as $tech)
-                    <span class="tech-pill" style="cursor:default">{{ $tech->tech_name }}</span>
+                    <span class="tech-pill shrink-0" style="cursor:default">{{ $tech->tech_name }}</span>
                 @endforeach
-            </div>
-        @endif
+            @endif
+        </div>
 
-        {{-- Footer: price + actions --}}
-        <div class="mt-auto flex items-center justify-between gap-3">
-            <a href="{{ route('products.show', $product->slug) }}" class="hover:opacity-80 transition">
+        {{-- Footer: price + actions — always pinned to bottom --}}
+        <div class="mt-auto pt-3 border-t border-white/6 flex items-center justify-between gap-3">
+            <a href="{{ route('products.show', $product->slug) }}" class="min-w-0 hover:opacity-80 transition">
                 @if($product->price_bdt)
-                    <p class="text-xs text-muted mb-0.5">{{ __('products.price_from') }}</p>
-                    <p class="text-white font-bold text-lg">
+                    <p class="text-xs text-muted mb-0.5 truncate">{{ __('products.price_from') }}</p>
+                    <p class="text-white font-bold text-lg leading-none truncate">
                         ৳{{ number_format($product->price_bdt, 0) }}
                         @if($product->price_usd)
                             <span class="text-muted text-xs font-normal">/ ${{ number_format($product->price_usd, 0) }}</span>
