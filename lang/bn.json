@@ -116,5 +116,22 @@
 
     "dashboard.title": "ড্যাশবোর্ড",
     "dashboard.heading": "স্বাগতম",
-    "dashboard.sub": "আপনার অ্যাকাউন্ট ম্যানেজ করুন ও প্রোডাক্ট এক্সপ্লোর করুন"
+    "dashboard.sub": "আপনার অ্যাকাউন্ট ম্যানেজ করুন ও প্রোডাক্ট এক্সপ্লোর করুন",
+
+    "products.page_title": "প্রোডাক্ট",
+    "products.page_heading": "রেডিমেড ওয়েব অ্যাপ",
+    "products.page_sub": "প্রোডাকশন-রেডি ওয়েব অ্যাপ ব্রাউজ করুন। লাইভ প্রিভিউ দেখুন, মিনিটে অর্ডার করুন।",
+    "products.count": "টি প্রোডাক্ট পাওয়া গেছে",
+    "products.search_placeholder": "প্রোডাক্ট খুঁজুন...",
+    "products.sort_label": "সাজান",
+    "products.sort_default": "ফিচার্ড",
+    "products.sort_newest": "সর্বশেষ",
+    "products.sort_price_asc": "দাম: কম থেকে বেশি",
+    "products.sort_price_desc": "দাম: বেশি থেকে কম",
+    "products.no_results": "কোনো প্রোডাক্ট পাওয়া যায়নি।",
+    "products.no_results_sub": "ফিল্টার বা সার্চ পরিবর্তন করে দেখুন।",
+    "products.clear_filters": "ফিল্টার মুছুন",
+    "products.filter_category": "ক্যাটাগরি",
+    "hero.headline_2": "অনলাইনে —",
+    "footer.legal_heading": "আইনগত"
 }

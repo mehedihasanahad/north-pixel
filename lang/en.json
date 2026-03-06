@@ -117,5 +117,20 @@
 
     "dashboard.title": "Dashboard",
     "dashboard.heading": "Welcome back",
-    "dashboard.sub": "Manage your account and explore products"
+    "dashboard.sub": "Manage your account and explore products",
+
+    "products.page_title": "Products",
+    "products.page_heading": "Ready-Made Web Apps",
+    "products.page_sub": "Browse our collection of production-ready web applications. Preview live, order in minutes.",
+    "products.count": "products found",
+    "products.search_placeholder": "Search products...",
+    "products.sort_label": "Sort by",
+    "products.sort_default": "Featured",
+    "products.sort_newest": "Newest",
+    "products.sort_price_asc": "Price: Low to High",
+    "products.sort_price_desc": "Price: High to Low",
+    "products.no_results": "No products found.",
+    "products.no_results_sub": "Try adjusting your filters or search term.",
+    "products.clear_filters": "Clear Filters",
+    "products.filter_category": "Category"
 }

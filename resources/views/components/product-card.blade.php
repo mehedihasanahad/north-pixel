@@ -11,12 +11,12 @@
                : $product->category?->name_en;
 @endphp
 
-<article class="product-card tilt-card flex flex-col" aria-label="{{ $title }}">
+<article class="product-card tilt-card flex flex-col group">
     {{-- Holographic shimmer layer --}}
     <div class="holographic" aria-hidden="true"></div>
 
-    {{-- Thumbnail --}}
-    <div class="relative aspect-video bg-surface-2 overflow-hidden">
+    {{-- Thumbnail (link to detail) --}}
+    <a href="{{ route('products.show', $product->slug) }}" class="relative aspect-video bg-surface-2 overflow-hidden block" aria-label="{{ $title }}">
         @if($product->thumbnail_url)
             <img src="{{ $product->thumbnail_url }}" alt="{{ $title }}"
                  class="w-full h-full object-cover transition duration-500 group-hover:scale-105"
@@ -41,7 +41,7 @@
                 <span class="badge badge-new">{{ __('products.new') }}</span>
             @endif
         </div>
-    </div>
+    </a>
 
     {{-- Body --}}
     <div class="flex flex-col flex-1 p-5">
@@ -50,10 +50,11 @@
             <span class="text-xs text-primary font-semibold uppercase tracking-wide mb-2">{{ $catName }}</span>
         @endif
 
-        {{-- Title --}}
-        <h3 class="font-bold text-white text-base leading-snug mb-2 line-clamp-2 {{ app()->getLocale() === 'bn' ? 'bn' : '' }}">
+        {{-- Title (link to detail) --}}
+        <a href="{{ route('products.show', $product->slug) }}"
+           class="font-bold text-white text-base leading-snug mb-2 line-clamp-2 hover:text-primary/90 transition {{ app()->getLocale() === 'bn' ? 'bn' : '' }}">
             {{ $title }}
-        </h3>
+        </a>
 
         {{-- Description --}}
         <p class="text-muted text-sm leading-relaxed line-clamp-2 mb-4 {{ app()->getLocale() === 'bn' ? 'bn' : '' }}">
@@ -71,7 +72,7 @@
 
         {{-- Footer: price + actions --}}
         <div class="mt-auto flex items-center justify-between gap-3">
-            <div>
+            <a href="{{ route('products.show', $product->slug) }}" class="hover:opacity-80 transition">
                 @if($product->price_bdt)
                     <p class="text-xs text-muted mb-0.5">{{ __('products.price_from') }}</p>
                     <p class="text-white font-bold text-lg">
@@ -81,7 +82,7 @@
                         @endif
                     </p>
                 @endif
-            </div>
+            </a>
 
             <div class="flex items-center gap-2 shrink-0">
                 @auth
@@ -98,7 +99,7 @@
                         {{ __('products.buy') }}
                     </button>
                 @else
-                    <a href="/login"
+                    <a href="{{ route('login') }}"
                        class="btn-ghost" style="padding:0.4rem 0.9rem;font-size:0.78rem;gap:5px">
                         <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
                         {{ __('products.login_to_preview') }}
