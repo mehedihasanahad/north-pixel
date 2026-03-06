@@ -110,6 +110,30 @@ class ProductResource extends Resource
                                 ->maxSize(2048),
                         ]),
 
+                    Forms\Components\Tabs\Tab::make('Tech Stack')
+                        ->schema([
+                            Forms\Components\Repeater::make('techStack')
+                                ->label('Technologies Used')
+                                ->relationship('techStack')
+                                ->schema([
+                                    Forms\Components\Grid::make(2)->schema([
+                                        Forms\Components\TextInput::make('tech_name')
+                                            ->label('Technology Name')
+                                            ->required()
+                                            ->maxLength(100)
+                                            ->placeholder('e.g. Laravel, Vue.js, MySQL'),
+                                        Forms\Components\TextInput::make('sort_order')
+                                            ->label('Order')
+                                            ->numeric()
+                                            ->default(0),
+                                    ]),
+                                ])
+                                ->addActionLabel('Add Technology')
+                                ->orderColumn('sort_order')
+                                ->collapsible()
+                                ->defaultItems(0),
+                        ]),
+
                     Forms\Components\Tabs\Tab::make('Status & Sorting')
                         ->schema([
                             Forms\Components\Grid::make(3)->schema([
@@ -121,6 +145,17 @@ class ProductResource extends Resource
                                 Forms\Components\Toggle::make('is_new')
                                     ->label('New')
                                     ->default(true),
+                            ]),
+
+                            Forms\Components\Grid::make(2)->schema([
+                                Forms\Components\Toggle::make('preview_available')
+                                    ->label('Preview Available')
+                                    ->helperText('ON = "Live Preview" button. OFF = "Coming Soon" (disabled).')
+                                    ->default(false),
+                                Forms\Components\Toggle::make('is_coming_soon')
+                                    ->label('Coming Soon (Pre-book)')
+                                    ->helperText('ON = "Pre-book" order button. OFF = "Order Now".')
+                                    ->default(false),
                             ]),
 
                             Forms\Components\TextInput::make('sort_order')

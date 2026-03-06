@@ -15,13 +15,15 @@ class Product extends Model
         'category_id', 'slug', 'title_en', 'title_bn',
         'short_desc_en', 'short_desc_bn', 'description_en', 'description_bn',
         'price_bdt', 'price_usd', 'preview_url', 'thumbnail_url',
-        'is_featured', 'is_active', 'is_new', 'sort_order',
+        'is_featured', 'is_active', 'is_new', 'is_coming_soon', 'preview_available', 'sort_order',
     ];
 
     protected $casts = [
-        'is_featured' => 'boolean',
-        'is_active'   => 'boolean',
-        'is_new'      => 'boolean',
+        'is_featured'       => 'boolean',
+        'is_active'         => 'boolean',
+        'is_new'            => 'boolean',
+        'is_coming_soon'    => 'boolean',
+        'preview_available' => 'boolean',
         'price_bdt'   => 'decimal:2',
         'price_usd'   => 'decimal:2',
     ];

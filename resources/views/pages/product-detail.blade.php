@@ -1,11 +1,11 @@
 @extends('layouts.app')
 
 @php
-    $locale  = app()->getLocale();
-    $title   = $locale === 'bn' && $product->title_bn       ? $product->title_bn       : $product->title_en;
-    $desc    = $locale === 'bn' && $product->description_bn ? $product->description_bn : $product->description_en;
-    $short   = $locale === 'bn' && $product->short_desc_bn  ? $product->short_desc_bn  : $product->short_desc_en;
-    $catName = $locale === 'bn' && $product->category?->name_bn ? $product->category->name_bn : $product->category?->name_en;
+    $locale     = app()->getLocale();
+    $title      = $locale === 'bn' && $product->title_bn       ? $product->title_bn       : $product->title_en;
+    $desc       = $locale === 'bn' && $product->description_bn ? $product->description_bn : $product->description_en;
+    $short      = $locale === 'bn' && $product->short_desc_bn  ? $product->short_desc_bn  : $product->short_desc_en;
+    $catName    = $locale === 'bn' && $product->category?->name_bn ? $product->category->name_bn : $product->category?->name_en;
 @endphp
 
 @section('title', $title)
@@ -22,25 +22,25 @@
 @endphp
 <script type="application/ld+json">
 {
-    "@context": "https://schema.org",
-    "@type": "Product",
+    "@@context": "https://schema.org",
+    "@@type": "Product",
     "name": {{ Js::from($product->title_en) }},
     "description": {{ Js::from($product->short_desc_en) }},
     "image": {{ Js::from($imageUrl) }},
     "url": {{ Js::from($productUrl) }},
     "sku": {{ Js::from((string) $product->id) }},
     "brand": {
-        "@type": "Brand",
+        "@@type": "Brand",
         "name": {{ Js::from($settings['site_name'] ?? config('app.name')) }}
     },
     "offers": {
-        "@type": "Offer",
+        "@@type": "Offer",
         "priceCurrency": "BDT",
         "price": {{ Js::from($priceBdt) }},
         "availability": "https://schema.org/InStock",
         "url": {{ Js::from($productUrl) }},
         "seller": {
-            "@type": "Organization",
+            "@@type": "Organization",
             "name": {{ Js::from($settings['site_name'] ?? config('app.name')) }}
         }
     }
@@ -74,12 +74,12 @@
                      x-data="{ active: 0 }">
                     @if($product->screenshots->count())
                         <img :src="[
-                                @foreach($product->screenshots as $i => $s) '{{ $s->url }}'{{ !$loop->last ? ',' : '' }} @endforeach
+                                @foreach($product->screenshots as $i => $s) '{{ "/storage/" . $s->url }}'{{ !$loop->last ? ',' : '' }} @endforeach
                              ][active]"
                              alt="{{ $title }}"
                              class="w-full h-full object-cover">
                     @elseif($product->thumbnail_url)
-                        <img src="{{ $product->thumbnail_url }}" alt="{{ $title }}" class="w-full h-full object-cover">
+                        <img src="{{ "/storage/" . $product->thumbnail_url }}" alt="{{ $title }}" class="w-full h-full object-cover">
                     @else
                         <div class="w-full h-full flex items-center justify-center shimmer"></div>
                     @endif
@@ -166,35 +166,39 @@
                         <p class="text-muted text-xs mb-1">{{ __('products.price_from') }}</p>
                         <p class="text-white font-bold text-3xl">
                             ৳{{ number_format($product->price_bdt, 0) }}
-                            @if($product->price_usd)
-                                <span class="text-muted text-sm font-normal">/ ${{ number_format($product->price_usd, 0) }}</span>
-                            @endif
                         </p>
                     </div>
 
                     {{-- CTA buttons --}}
                     <div class="space-y-3">
+                        {{-- Order / Pre-book --}}
                         <button
-                            @click="$store.ui.openModal({ title: '{{ addslashes($title) }}' })"
+                            @click="$store.ui.openModal({ title: {{ Js::from($title) }}, isPrebook: {{ $product->is_coming_soon ? 'true' : 'false' }} })"
                             class="btn-primary w-full justify-center py-3">
-                            {{ __('products.buy') }}
+                            {{ $product->is_coming_soon ? __('products.prebook') : __('products.buy') }}
                         </button>
 
-                        @auth
-                            @if($product->preview_url)
+                        {{-- Preview / Coming Soon --}}
+                        @if($product->preview_available && $product->preview_url)
+                            @auth
                                 <a href="{{ $product->preview_url }}" target="_blank" rel="noopener noreferrer"
                                    class="btn-ghost w-full justify-center py-3">
                                     <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M1 12S5 4 12 4s11 8 11 8-4 8-11 8S1 12 1 12z"/><circle cx="12" cy="12" r="3"/></svg>
                                     {{ __('products.preview') }}
                                 </a>
-                            @endif
+                            @else
+                                <a href="{{ route('login') }}"
+                                   class="btn-ghost w-full justify-center py-3">
+                                    <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M1 12S5 4 12 4s11 8 11 8-4 8-11 8S1 12 1 12z"/><circle cx="12" cy="12" r="3"/></svg>
+                                    {{ __('products.preview') }}
+                                </a>
+                            @endauth
                         @else
-                            <a href="{{ route('login') }}"
-                               class="btn-ghost w-full justify-center py-3">
-                                <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
-                                {{ __('products.login_to_preview') }}
-                            </a>
-                        @endauth
+                            <span class="btn-ghost w-full justify-center py-3 opacity-40 cursor-not-allowed select-none">
+                                <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2a10 10 0 100 20A10 10 0 0012 2zm0 5v5l3 3"/></svg>
+                                {{ __('products.coming_soon') }}
+                            </span>
+                        @endif
                     </div>
 
                     {{-- Tech stack --}}

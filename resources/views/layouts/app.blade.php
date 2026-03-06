@@ -69,7 +69,7 @@
     {{-- Page-specific styles --}}
     @stack('styles')
 </head>
-<body>
+<body x-data>
 
     {{-- Scroll progress bar --}}
     <div id="scroll-progress" aria-hidden="true"></div>

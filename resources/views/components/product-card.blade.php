@@ -21,7 +21,7 @@
        style="padding-top: 56.25%"
        aria-label="{{ $title }}">
         @if($product->thumbnail_url)
-            <img src="{{ $product->thumbnail_url }}" alt="{{ $title }}"
+            <img src="{{ "/storage/" . $product->thumbnail_url }}" alt="{{ $title }}"
                  class="absolute inset-0 w-full h-full object-cover transition duration-500 group-hover:scale-105"
                  loading="lazy">
         @else
@@ -83,34 +83,39 @@
                     <p class="text-xs text-muted mb-0.5 truncate">{{ __('products.price_from') }}</p>
                     <p class="text-white font-bold text-lg leading-none truncate">
                         ৳{{ number_format($product->price_bdt, 0) }}
-                        @if($product->price_usd)
-                            <span class="text-muted text-xs font-normal">/ ${{ number_format($product->price_usd, 0) }}</span>
-                        @endif
                     </p>
                 @endif
             </a>
 
             <div class="flex items-center gap-2 shrink-0">
-                @auth
-                    @if($product->preview_url)
+                {{-- Preview button: Live Preview or Coming Soon --}}
+                @if($product->preview_available && $product->preview_url)
+                    @auth
                         <a href="{{ $product->preview_url }}" target="_blank" rel="noopener noreferrer"
                            class="btn-ghost" style="padding:0.4rem 0.9rem;font-size:0.78rem;gap:5px">
                             <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M1 12S5 4 12 4s11 8 11 8-4 8-11 8S1 12 1 12z"/><circle cx="12" cy="12" r="3"/></svg>
                             {{ __('products.preview') }}
                         </a>
-                    @endif
-                    <button
-                        @click="$store.ui.openModal({ title: '{{ addslashes($title) }}' })"
-                        class="btn-primary" style="padding:0.4rem 0.9rem;font-size:0.78rem">
-                        {{ __('products.buy') }}
-                    </button>
+                    @else
+                        <a href="{{ route('login') }}"
+                           class="btn-ghost" style="padding:0.4rem 0.9rem;font-size:0.78rem;gap:5px">
+                            <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M1 12S5 4 12 4s11 8 11 8-4 8-11 8S1 12 1 12z"/><circle cx="12" cy="12" r="3"/></svg>
+                            {{ __('products.preview') }}
+                        </a>
+                    @endauth
                 @else
-                    <a href="{{ route('login') }}"
-                       class="btn-ghost" style="padding:0.4rem 0.9rem;font-size:0.78rem;gap:5px">
-                        <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
-                        {{ __('products.login_to_preview') }}
-                    </a>
-                @endauth
+                    <span class="btn-ghost opacity-40 cursor-not-allowed select-none" style="padding:0.4rem 0.9rem;font-size:0.78rem;gap:5px">
+                        <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2a10 10 0 100 20A10 10 0 0012 2zm0 5v5l3 3"/></svg>
+                        {{ __('products.coming_soon') }}
+                    </span>
+                @endif
+
+                {{-- Order button: Order Now or Pre-book --}}
+                <button
+                    @click="$store.ui.openModal({ title: {{ Js::from($title) }}, isPrebook: {{ $product->is_coming_soon ? 'true' : 'false' }} })"
+                    class="btn-primary" style="padding:0.4rem 0.9rem;font-size:0.78rem">
+                    {{ $product->is_coming_soon ? __('products.prebook') : __('products.buy') }}
+                </button>
             </div>
         </div>
     </div>

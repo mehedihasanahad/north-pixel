@@ -74,10 +74,9 @@
                     <ul class="space-y-0.5">
                         <li>
                             <a href="{{ route('products.index', request()->except(['category', 'page'])) }}"
-                               class="flex items-center justify-between px-3 py-2.5 rounded-xl text-sm transition
+                               class="flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-sm transition
                                       {{ !request('category') ? 'bg-primary/10 text-primary font-semibold' : 'text-muted hover:text-white hover:bg-white/5' }}">
                                 <span>{{ __('products.filter_all') }}</span>
-                                <span class="text-xs opacity-60">{{ $products->total() }}</span>
                             </a>
                         </li>
                         @foreach($categories as $cat)
@@ -87,7 +86,11 @@
                                    class="flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-sm transition
                                           {{ request('category') === $cat->slug ? 'bg-primary/10 text-primary font-semibold' : 'text-muted hover:text-white hover:bg-white/5' }}">
                                     @if($cat->icon)
-                                        <span class="text-base leading-none">{{ $cat->icon }}</span>
+                                        @if(str_starts_with($cat->icon, 'heroicon-'))
+                                            <x-dynamic-component :component="$cat->icon" class="w-4 h-4 shrink-0" />
+                                        @else
+                                            <span class="text-base leading-none">{{ $cat->icon }}</span>
+                                        @endif
                                     @endif
                                     <span class="{{ app()->getLocale() === 'bn' ? 'bn' : '' }}">{{ $catName }}</span>
                                 </a>
@@ -106,7 +109,7 @@
                 </p>
 
                 @if($products->count())
-                    <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-5">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
                         @foreach($products as $product)
                             @include('components.product-card', ['product' => $product])
                         @endforeach

@@ -437,6 +437,8 @@
     }
     #order-modal.open { display: flex; }
     #order-modal-inner {
+        position: relative;
+        z-index: 1;
         background: var(--color-surface);
         border: 1px solid var(--color-border);
         border-radius: 1.5rem 1.5rem 0 0;
