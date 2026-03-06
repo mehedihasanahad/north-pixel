@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('title', __('contact.page_title'))
+@section('description', __('contact.page_sub'))
 
 @section('content')
 <div class="min-h-screen pt-28 pb-20">

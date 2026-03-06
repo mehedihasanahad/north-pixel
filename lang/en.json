@@ -250,5 +250,15 @@
     "about.cta_heading": "Ready to Work Together?",
     "about.cta_sub": "Whether you need a ready-made solution or a custom build, we're here to help.",
     "about.cta_products": "Browse Products",
-    "about.cta_custom": "Start a Custom Project"
+    "about.cta_custom": "Start a Custom Project",
+
+    "privacy.page_title": "Privacy Policy",
+    "privacy.page_heading": "Privacy Policy",
+    "privacy.last_updated": "Last updated: March 2026",
+    "privacy.intro": "Your privacy is important to us. This policy explains how we collect, use, and protect your personal information when you use our website and services.",
+
+    "terms.page_title": "Terms of Service",
+    "terms.page_heading": "Terms of Service",
+    "terms.last_updated": "Last updated: March 2026",
+    "terms.intro": "Please read these terms carefully before using our website or purchasing any products or services from us."
 }

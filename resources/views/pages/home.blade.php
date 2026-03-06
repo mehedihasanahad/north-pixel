@@ -1,13 +1,11 @@
 @extends('layouts.app')
 
-@section('title', ($settings['site_name'] ?? config('app.name')) . ' — ' . __('hero.headline_1') . ' ' . __('hero.headline_accent'))
+@section('title', __('hero.headline_1') . ' ' . __('hero.headline_accent'))
+@section('description', __('hero.sub'))
 
-@section('meta')
-    <meta property="og:title"       content="{{ $settings['site_name'] ?? config('app.name') }}">
-    <meta property="og:description" content="{{ __('hero.sub') }}">
-    <meta property="og:type"        content="website">
-    <meta name="theme-color"        content="#7C3AED">
-@endsection
+@push('seo')
+<meta name="theme-color" content="#7C3AED">
+@endpush
 
 {{-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
      HERO  —  Full viewport, GSAP animated

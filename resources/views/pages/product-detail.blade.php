@@ -10,6 +10,46 @@
 
 @section('title', $title)
 @section('description', $short)
+@section('og_type', 'product')
+@section('og_image', $product->thumbnail_url ?: asset('assets/images/logo.jpeg'))
+
+@push('seo')
+@php
+    $siteUrl   = rtrim(config('app.url'), '/');
+    $productUrl = $siteUrl . '/products/' . $product->slug;
+    $imageUrl   = $product->thumbnail_url ?: asset('assets/images/logo.jpeg');
+    $priceBdt   = number_format((float) $product->price_bdt, 2, '.', '');
+@endphp
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "name": {{ Js::from($product->title_en) }},
+    "description": {{ Js::from($product->short_desc_en) }},
+    "image": {{ Js::from($imageUrl) }},
+    "url": {{ Js::from($productUrl) }},
+    "sku": {{ Js::from((string) $product->id) }},
+    "brand": {
+        "@type": "Brand",
+        "name": {{ Js::from($settings['site_name'] ?? config('app.name')) }}
+    },
+    "offers": {
+        "@type": "Offer",
+        "priceCurrency": "BDT",
+        "price": {{ Js::from($priceBdt) }},
+        "availability": "https://schema.org/InStock",
+        "url": {{ Js::from($productUrl) }},
+        "seller": {
+            "@type": "Organization",
+            "name": {{ Js::from($settings['site_name'] ?? config('app.name')) }}
+        }
+    }
+    @if($product->category)
+    ,"category": {{ Js::from($product->category->name_en) }}
+    @endif
+}
+</script>
+@endpush
 
 @section('content')
 <div class="pt-28 pb-20">

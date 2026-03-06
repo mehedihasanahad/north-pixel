@@ -6,14 +6,57 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>@yield('title', $settings['site_name'] ?? config('app.name'))</title>
-    <meta name="description" content="@yield('description', $settings['meta_description'] ?? '')">
+    @php
+        $siteName    = $settings['site_name']        ?? config('app.name');
+        $siteDesc    = $settings['meta_description']  ?? '';
+        $siteUrl     = rtrim(config('app.url'), '/');
+        $logoUrl     = asset('assets/images/logo.jpeg');
+        $pageTitle   = trim($__env->yieldContent('title'));
+        $fullTitle   = $pageTitle ? $pageTitle . ' — ' . $siteName : $siteName;
+        $pageDesc    = trim($__env->yieldContent('description')) ?: $siteDesc;
+        $pageOgImage = trim($__env->yieldContent('og_image'))    ?: $logoUrl;
+        $ogType      = trim($__env->yieldContent('og_type'))     ?: 'website';
+        $robots      = trim($__env->yieldContent('robots'))      ?: 'index, follow';
+        $canonicalUrl = $siteUrl . request()->getPathInfo();
+    @endphp
 
-    <link rel="icon" type="image/jpeg" href="{{ asset('assets/images/logo.jpeg') }}">
-    <link rel="shortcut icon" href="{{ asset('assets/images/logo.jpeg') }}">
-    <link rel="apple-touch-icon" href="{{ asset('assets/images/logo.jpeg') }}">
+    <title>{{ $fullTitle }}</title>
+    <meta name="description" content="{{ $pageDesc }}">
+    <meta name="robots" content="{{ $robots }}">
 
-    @yield('meta')
+    {{-- Canonical & hreflang --}}
+    <link rel="canonical" href="{{ $canonicalUrl }}">
+    <link rel="alternate" hreflang="en" href="{{ $siteUrl }}{{ request()->getPathInfo() }}">
+    <link rel="alternate" hreflang="bn" href="{{ $siteUrl }}{{ request()->getPathInfo() }}">
+    <link rel="alternate" hreflang="x-default" href="{{ $canonicalUrl }}">
+
+    {{-- Open Graph --}}
+    <meta property="og:type"         content="{{ $ogType }}">
+    <meta property="og:site_name"    content="{{ $siteName }}">
+    <meta property="og:title"        content="{{ $fullTitle }}">
+    <meta property="og:description"  content="{{ $pageDesc }}">
+    <meta property="og:url"          content="{{ $canonicalUrl }}">
+    <meta property="og:image"        content="{{ $pageOgImage }}">
+    <meta property="og:image:width"  content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:locale"       content="{{ app()->getLocale() === 'bn' ? 'bn_BD' : 'en_US' }}">
+
+    {{-- Twitter Card --}}
+    <meta name="twitter:card"        content="summary_large_image">
+    <meta name="twitter:title"       content="{{ $fullTitle }}">
+    <meta name="twitter:description" content="{{ $pageDesc }}">
+    <meta name="twitter:image"       content="{{ $pageOgImage }}">
+    @if(!empty($settings['twitter_url']))
+        <meta name="twitter:site" content="@{{ ltrim(basename($settings['twitter_url']), '@') }}">
+    @endif
+
+    {{-- Favicon --}}
+    <link rel="icon" type="image/jpeg" href="{{ $logoUrl }}">
+    <link rel="shortcut icon" href="{{ $logoUrl }}">
+    <link rel="apple-touch-icon" href="{{ $logoUrl }}">
+
+    {{-- Page-specific SEO (JSON-LD, extra meta) --}}
+    @stack('seo')
 
     {{-- Fonts --}}
     <link rel="preconnect" href="https://fonts.googleapis.com">

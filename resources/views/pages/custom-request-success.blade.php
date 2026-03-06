@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('title', __('custom_request.success_title'))
+@section('robots', 'noindex, nofollow')
 
 @section('content')
 <div class="min-h-screen pt-28 pb-20 flex items-center">

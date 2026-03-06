@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('title', __('auth.register_title'))
+@section('robots', 'noindex, nofollow')
 
 @section('content')
 <div class="min-h-screen flex items-center justify-center px-4 py-24">
