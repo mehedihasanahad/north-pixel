@@ -77,17 +77,17 @@
         </div>
 
         {{-- Footer: price + actions — always pinned to bottom --}}
-        <div class="mt-auto pt-3 border-t border-white/6 flex items-center justify-between gap-3">
-            <a href="{{ route('products.show', $product->slug) }}" class="min-w-0 hover:opacity-80 transition">
+        <div class="mt-auto pt-3 border-t border-white/6 flex items-center justify-between gap-2">
+            <a href="{{ route('products.show', $product->slug) }}" class="shrink-0 hover:opacity-80 transition">
                 @if($product->price_bdt)
-                    <p class="text-xs text-muted mb-0.5 truncate">{{ __('products.price_from') }}</p>
-                    <p class="text-white font-bold text-lg leading-none truncate">
+                    <p class="text-xs text-muted mb-0.5 whitespace-nowrap">{{ __('products.price_from') }}</p>
+                    <p class="text-white font-bold text-lg leading-none whitespace-nowrap">
                         ৳{{ number_format($product->price_bdt, 0) }}
                     </p>
                 @endif
             </a>
 
-            <div class="flex items-center gap-2 shrink-0">
+            <div class="flex items-center gap-1.5 shrink-0">
                 {{-- Preview button: Live Preview or Coming Soon --}}
                 @if($product->preview_available && $product->preview_url)
                     @auth
