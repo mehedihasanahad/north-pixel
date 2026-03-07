@@ -15,66 +15,64 @@
         <div class="space-y-8 legal-content">
 
             <div class="bg-surface border border-white/8 rounded-2xl p-7">
-                <h2>1. Information We Collect</h2>
-                <p>We collect information you provide directly to us, including:</p>
+                <h2>{{ __('privacy.s1_heading') }}</h2>
+                <p>{{ __('privacy.s1_p1') }}</p>
                 <ul>
-                    <li><strong>Account information:</strong> Name, email address, and phone number when you register.</li>
-                    <li><strong>Contact &amp; inquiry data:</strong> Messages you send via our contact form or custom project request form.</li>
-                    <li><strong>Usage data:</strong> Pages visited, browser type, and IP address collected automatically via server logs.</li>
+                    <li><strong>{{ __('privacy.s1_li1_label') }}</strong> {{ __('privacy.s1_li1') }}</li>
+                    <li><strong>{{ __('privacy.s1_li2_label') }}</strong> {{ __('privacy.s1_li2') }}</li>
+                    <li><strong>{{ __('privacy.s1_li3_label') }}</strong> {{ __('privacy.s1_li3') }}</li>
                 </ul>
             </div>
 
             <div class="bg-surface border border-white/8 rounded-2xl p-7">
-                <h2>2. How We Use Your Information</h2>
-                <p>We use the information we collect to:</p>
+                <h2>{{ __('privacy.s2_heading') }}</h2>
+                <p>{{ __('privacy.s2_p1') }}</p>
                 <ul>
-                    <li>Provide, operate, and improve our services and products.</li>
-                    <li>Respond to your inquiries, custom project requests, and support questions.</li>
-                    <li>Send you transactional messages related to your account or orders.</li>
-                    <li>Authenticate your identity and grant access to live product previews.</li>
+                    <li>{{ __('privacy.s2_li1') }}</li>
+                    <li>{{ __('privacy.s2_li2') }}</li>
+                    <li>{{ __('privacy.s2_li3') }}</li>
+                    <li>{{ __('privacy.s2_li4') }}</li>
                 </ul>
-                <p>We do <strong>not</strong> sell your personal data to third parties.</p>
+                <p>{{ __('privacy.s2_p2') }}</p>
             </div>
 
             <div class="bg-surface border border-white/8 rounded-2xl p-7">
-                <h2>3. Data Storage &amp; Security</h2>
-                <p>Your data is stored on secured VPS servers located within trusted data centers. We use industry-standard encryption (HTTPS/TLS) for all data in transit. Passwords are hashed using bcrypt and are never stored in plain text.</p>
-                <p>While we take reasonable measures to protect your information, no method of transmission over the internet is 100% secure.</p>
+                <h2>{{ __('privacy.s3_heading') }}</h2>
+                <p>{{ __('privacy.s3_p1') }}</p>
+                <p>{{ __('privacy.s3_p2') }}</p>
             </div>
 
             <div class="bg-surface border border-white/8 rounded-2xl p-7">
-                <h2>4. Cookies</h2>
-                <p>We use session cookies to maintain your login state and language preference. No third-party advertising or tracking cookies are used on this website. You can disable cookies in your browser settings, though this may affect site functionality.</p>
+                <h2>{{ __('privacy.s4_heading') }}</h2>
+                <p>{{ __('privacy.s4_p1') }}</p>
             </div>
 
             <div class="bg-surface border border-white/8 rounded-2xl p-7">
-                <h2>5. Third-Party Services</h2>
-                <p>Our website may include links to or integrations with third-party services such as WhatsApp and Facebook Messenger for order inquiries. Use of those services is governed by their respective privacy policies. We are not responsible for their data practices.</p>
+                <h2>{{ __('privacy.s5_heading') }}</h2>
+                <p>{{ __('privacy.s5_p1') }}</p>
             </div>
 
             <div class="bg-surface border border-white/8 rounded-2xl p-7">
-                <h2>6. Your Rights</h2>
-                <p>You have the right to:</p>
+                <h2>{{ __('privacy.s6_heading') }}</h2>
+                <p>{{ __('privacy.s6_p1') }}</p>
                 <ul>
-                    <li>Access the personal data we hold about you.</li>
-                    <li>Request correction or deletion of your data.</li>
-                    <li>Withdraw consent at any time by deleting your account or contacting us.</li>
+                    <li>{{ __('privacy.s6_li1') }}</li>
+                    <li>{{ __('privacy.s6_li2') }}</li>
+                    <li>{{ __('privacy.s6_li3') }}</li>
                 </ul>
-                <p>To exercise these rights, contact us at <a href="{{ route('contact') }}">our contact page</a>.</p>
+                <p>{{ __('privacy.s6_p2') }} <a href="{{ route('contact') }}">{{ __('privacy.s6_contact_link') }}</a>.</p>
             </div>
 
             <div class="bg-surface border border-white/8 rounded-2xl p-7">
-                <h2>7. Changes to This Policy</h2>
-                <p>We may update this Privacy Policy from time to time. Changes will be posted on this page with an updated revision date. Continued use of our services after changes constitutes acceptance of the new policy.</p>
+                <h2>{{ __('privacy.s7_heading') }}</h2>
+                <p>{{ __('privacy.s7_p1') }}</p>
             </div>
 
             <div class="bg-surface border border-white/8 rounded-2xl p-7">
-                <h2>8. Contact Us</h2>
-                <p>If you have any questions about this Privacy Policy, please reach out via our <a href="{{ route('contact') }}">contact page</a>
-                @if(!empty($settings['contact_email']))
-                    or email us at <a href="mailto:{{ $settings['contact_email'] }}">{{ $settings['contact_email'] }}</a>
-                @endif
-                .</p>
+                <h2>{{ __('privacy.s8_heading') }}</h2>
+                <p>
+                    {{ __('privacy.s8_p1') }} <a href="{{ route('contact') }}">{{ __('privacy.s8_contact_link') }}</a>@if(!empty($settings['contact_email'])), {{ __('privacy.s8_email_or') }} <a href="mailto:{{ $settings['contact_email'] }}">{{ $settings['contact_email'] }}</a>@endif.
+                </p>
             </div>
 
         </div>

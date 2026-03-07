@@ -15,74 +15,72 @@
         <div class="space-y-8 legal-content">
 
             <div class="bg-surface border border-white/8 rounded-2xl p-7">
-                <h2>1. Acceptance of Terms</h2>
-                <p>By accessing or using our website, you agree to be bound by these Terms of Service and our Privacy Policy. If you do not agree to these terms, please do not use our services.</p>
+                <h2>{{ __('terms.s1_heading') }}</h2>
+                <p>{{ __('terms.s1_p1') }}</p>
             </div>
 
             <div class="bg-surface border border-white/8 rounded-2xl p-7">
-                <h2>2. Products &amp; Services</h2>
-                <p>We offer ready-made web application products and custom development services. All product details, pricing, and features are displayed on the respective product pages.</p>
+                <h2>{{ __('terms.s2_heading') }}</h2>
+                <p>{{ __('terms.s2_p1') }}</p>
                 <ul>
-                    <li>Products are sold as-is with the features described at the time of purchase.</li>
-                    <li>Custom project scopes are defined in separate written agreements before work begins.</li>
-                    <li>Live previews are available to registered users for evaluation purposes only and do not constitute ownership.</li>
+                    <li>{{ __('terms.s2_li1') }}</li>
+                    <li>{{ __('terms.s2_li2') }}</li>
+                    <li>{{ __('terms.s2_li3') }}</li>
                 </ul>
             </div>
 
             <div class="bg-surface border border-white/8 rounded-2xl p-7">
-                <h2>3. Orders &amp; Payment</h2>
-                <p>Orders are currently placed via WhatsApp or Facebook Messenger. A formal agreement or invoice will be issued before any payment is made. We reserve the right to refuse or cancel any order at our discretion.</p>
-                <p>Pricing is displayed in BDT (Bangladeshi Taka). USD pricing where shown is for reference only and subject to exchange rate fluctuation.</p>
+                <h2>{{ __('terms.s3_heading') }}</h2>
+                <p>{{ __('terms.s3_p1') }}</p>
+                <p>{{ __('terms.s3_p2') }}</p>
             </div>
 
             <div class="bg-surface border border-white/8 rounded-2xl p-7">
-                <h2>4. User Accounts</h2>
-                <p>You must provide accurate information when creating an account. You are responsible for maintaining the confidentiality of your login credentials. We reserve the right to terminate accounts that violate these terms or engage in fraudulent activity.</p>
+                <h2>{{ __('terms.s4_heading') }}</h2>
+                <p>{{ __('terms.s4_p1') }}</p>
             </div>
 
             <div class="bg-surface border border-white/8 rounded-2xl p-7">
-                <h2>5. Intellectual Property</h2>
-                <p>Upon full payment, you receive a license to use the purchased product for your business. You may not:</p>
+                <h2>{{ __('terms.s5_heading') }}</h2>
+                <p>{{ __('terms.s5_p1') }}</p>
                 <ul>
-                    <li>Resell, redistribute, or sublicense our products to third parties.</li>
-                    <li>Remove or alter copyright or attribution notices within the product code.</li>
-                    <li>Use our branding, logo, or trade name without written permission.</li>
+                    <li>{{ __('terms.s5_li1') }}</li>
+                    <li>{{ __('terms.s5_li2') }}</li>
+                    <li>{{ __('terms.s5_li3') }}</li>
                 </ul>
             </div>
 
             <div class="bg-surface border border-white/8 rounded-2xl p-7">
-                <h2>6. Limitation of Liability</h2>
-                <p>Our products are provided "as is" without warranty of any kind. We are not liable for any indirect, incidental, or consequential damages arising from the use of our products or services, including but not limited to loss of revenue or data.</p>
-                <p>Our total liability in any matter arising from these terms shall not exceed the amount paid by you for the relevant product or service.</p>
+                <h2>{{ __('terms.s6_heading') }}</h2>
+                <p>{{ __('terms.s6_p1') }}</p>
+                <p>{{ __('terms.s6_p2') }}</p>
             </div>
 
             <div class="bg-surface border border-white/8 rounded-2xl p-7">
-                <h2>7. Refund Policy</h2>
-                <p>Due to the digital nature of our products, all sales are generally final. Refunds may be considered on a case-by-case basis if:</p>
+                <h2>{{ __('terms.s7_heading') }}</h2>
+                <p>{{ __('terms.s7_p1') }}</p>
                 <ul>
-                    <li>A product has critical defects that cannot be resolved within a reasonable timeframe.</li>
-                    <li>A request is made within 7 days of purchase and the product has not been deployed.</li>
+                    <li>{{ __('terms.s7_li1') }}</li>
+                    <li>{{ __('terms.s7_li2') }}</li>
                 </ul>
-                <p>Custom project payments are non-refundable once work has commenced unless agreed otherwise in writing.</p>
+                <p>{{ __('terms.s7_p2') }}</p>
             </div>
 
             <div class="bg-surface border border-white/8 rounded-2xl p-7">
-                <h2>8. Changes to Terms</h2>
-                <p>We reserve the right to modify these Terms of Service at any time. Changes will be effective immediately upon posting. Your continued use of our services constitutes acceptance of the revised terms.</p>
+                <h2>{{ __('terms.s8_heading') }}</h2>
+                <p>{{ __('terms.s8_p1') }}</p>
             </div>
 
             <div class="bg-surface border border-white/8 rounded-2xl p-7">
-                <h2>9. Governing Law</h2>
-                <p>These terms are governed by the laws of Bangladesh. Any disputes shall be resolved in the courts of Bangladesh.</p>
+                <h2>{{ __('terms.s9_heading') }}</h2>
+                <p>{{ __('terms.s9_p1') }}</p>
             </div>
 
             <div class="bg-surface border border-white/8 rounded-2xl p-7">
-                <h2>10. Contact Us</h2>
-                <p>For questions about these Terms of Service, please contact us via our <a href="{{ route('contact') }}">contact page</a>
-                @if(!empty($settings['contact_email']))
-                    or email <a href="mailto:{{ $settings['contact_email'] }}">{{ $settings['contact_email'] }}</a>
-                @endif
-                .</p>
+                <h2>{{ __('terms.s10_heading') }}</h2>
+                <p>
+                    {{ __('terms.s10_p1') }} <a href="{{ route('contact') }}">{{ __('terms.s10_contact_link') }}</a>@if(!empty($settings['contact_email'])), {{ __('terms.s10_email_or') }} <a href="mailto:{{ $settings['contact_email'] }}">{{ $settings['contact_email'] }}</a>@endif.
+                </p>
             </div>
 
         </div>
