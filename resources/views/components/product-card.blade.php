@@ -47,7 +47,7 @@
     </a>
 
     {{-- Body — flex-1 so all cards stretch to same height in a row --}}
-    <div class="flex flex-col flex-1 p-5">
+    <div class="flex flex-col flex-1 p-3 sm:p-5">
 
         {{-- Category — fixed 1-line height --}}
         <p class="text-xs text-primary font-semibold uppercase tracking-wide truncate mb-1.5 h-4">
@@ -78,7 +78,7 @@
 
         {{-- Footer: price + actions — always pinned to bottom --}}
         <div class="mt-auto pt-3 border-t border-white/6 flex items-center justify-between gap-2">
-            <a href="{{ route('products.show', $product->slug) }}" class="shrink-0 hover:opacity-80 transition">
+            <a href="{{ route('products.show', $product->slug) }}" class="min-w-0 hover:opacity-80 transition">
                 @if($product->price_bdt)
                     <p class="text-xs text-muted mb-0.5 whitespace-nowrap">{{ __('products.price_from') }}</p>
                     <p class="text-white font-bold text-lg leading-none whitespace-nowrap">
@@ -92,20 +92,20 @@
                 @if($product->preview_available && $product->preview_url)
                     @auth
                         <a href="{{ $product->preview_url }}" target="_blank" rel="noopener noreferrer"
-                           class="btn-ghost" style="padding:0.4rem 0.9rem;font-size:0.78rem;gap:5px">
-                            <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M1 12S5 4 12 4s11 8 11 8-4 8-11 8S1 12 1 12z"/><circle cx="12" cy="12" r="3"/></svg>
+                           class="btn-ghost" style="padding:0.4rem 0.6rem;font-size:0.75rem;gap:4px">
+                            <svg class="hidden sm:inline" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M1 12S5 4 12 4s11 8 11 8-4 8-11 8S1 12 1 12z"/><circle cx="12" cy="12" r="3"/></svg>
                             {{ __('products.preview') }}
                         </a>
                     @else
                         <a href="{{ route('login') }}"
-                           class="btn-ghost" style="padding:0.4rem 0.9rem;font-size:0.78rem;gap:5px">
-                            <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M1 12S5 4 12 4s11 8 11 8-4 8-11 8S1 12 1 12z"/><circle cx="12" cy="12" r="3"/></svg>
+                           class="btn-ghost" style="padding:0.4rem 0.6rem;font-size:0.75rem;gap:4px">
+                            <svg class="hidden sm:inline" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M1 12S5 4 12 4s11 8 11 8-4 8-11 8S1 12 1 12z"/><circle cx="12" cy="12" r="3"/></svg>
                             {{ __('products.preview') }}
                         </a>
                     @endauth
                 @else
-                    <span class="btn-ghost opacity-40 cursor-not-allowed select-none" style="padding:0.4rem 0.9rem;font-size:0.78rem;gap:5px">
-                        <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2a10 10 0 100 20A10 10 0 0012 2zm0 5v5l3 3"/></svg>
+                    <span class="btn-ghost opacity-40 cursor-not-allowed select-none" style="padding:0.4rem 0.6rem;font-size:0.75rem;gap:4px">
+                        <svg class="hidden sm:inline" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2a10 10 0 100 20A10 10 0 0012 2zm0 5v5l3 3"/></svg>
                         {{ __('products.coming_soon') }}
                     </span>
                 @endif
@@ -113,7 +113,7 @@
                 {{-- Order button: Order Now or Pre-book --}}
                 <button
                     @click="$store.ui.openModal({ title: {{ Js::from($title) }}, isPrebook: {{ $product->is_coming_soon ? 'true' : 'false' }} })"
-                    class="btn-primary" style="padding:0.4rem 0.9rem;font-size:0.78rem">
+                    class="btn-primary" style="padding:0.4rem 0.6rem;font-size:0.75rem">
                     {{ $product->is_coming_soon ? __('products.prebook') : __('products.buy') }}
                 </button>
             </div>
