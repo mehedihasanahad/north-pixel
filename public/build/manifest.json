@@ -1,6 +1,12 @@
 {
+  "node_modules/photoswipe/dist/photoswipe.esm.js": {
+    "file": "assets/photoswipe.esm-BXDdABy_.js",
+    "name": "photoswipe.esm",
+    "src": "node_modules/photoswipe/dist/photoswipe.esm.js",
+    "isDynamicEntry": true
+  },
   "resources/css/app.css": {
-    "file": "assets/app-CmrcwCZm.css",
+    "file": "assets/app-BTAxaITW.css",
     "src": "resources/css/app.css",
     "isEntry": true,
     "name": "app",
@@ -19,5 +25,17 @@
     "name": "home",
     "src": "resources/js/pages/home.js",
     "isEntry": true
+  },
+  "resources/js/pages/product-detail.js": {
+    "file": "assets/product-detail-BtEQqERx.js",
+    "name": "product-detail",
+    "src": "resources/js/pages/product-detail.js",
+    "isEntry": true,
+    "dynamicImports": [
+      "node_modules/photoswipe/dist/photoswipe.esm.js"
+    ],
+    "css": [
+      "assets/product-detail-DZU1WGtr.css"
+    ]
   }
 }

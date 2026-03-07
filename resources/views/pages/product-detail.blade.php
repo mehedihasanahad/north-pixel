@@ -69,17 +69,28 @@
             {{-- Left: screenshots + description --}}
             <div class="lg:col-span-2 space-y-8">
 
+                {{-- Pass screenshot URLs to JS --}}
+                @if($product->screenshots->count())
+                <script>window._screenshotUrls = {!! json_encode($product->screenshots->map(fn($s) => asset('storage/' . $s->url))) !!};</script>
+                @elseif($product->thumbnail_url)
+                <script>window._screenshotUrls = {!! json_encode([asset('storage/' . $product->thumbnail_url)]) !!};</script>
+                @endif
+
                 {{-- Main screenshot / thumbnail --}}
                 <div class="rounded-2xl overflow-hidden border border-white/8 bg-surface aspect-video"
                      x-data="{ active: 0 }">
+
                     @if($product->screenshots->count())
                         <img :src="[
-                                @foreach($product->screenshots as $i => $s) '{{ "/storage/" . $s->url }}'{{ !$loop->last ? ',' : '' }} @endforeach
+                                @foreach($product->screenshots as $i => $s) '{{ asset("storage/" . $s->url) }}'{{ !$loop->last ? ',' : '' }} @endforeach
                              ][active]"
                              alt="{{ $title }}"
-                             class="w-full h-full object-cover">
+                             class="w-full h-full object-cover cursor-zoom-in"
+                             @click="window._lightbox && window._lightbox.loadAndOpen(active)">
                     @elseif($product->thumbnail_url)
-                        <img src="{{ "/storage/" . $product->thumbnail_url }}" alt="{{ $title }}" class="w-full h-full object-cover">
+                        <img src="{{ asset('storage/' . $product->thumbnail_url) }}" alt="{{ $title }}"
+                             class="w-full h-full object-cover cursor-zoom-in"
+                             @click="window._lightbox && window._lightbox.loadAndOpen(0)">
                     @else
                         <div class="w-full h-full flex items-center justify-center shimmer"></div>
                     @endif
@@ -91,7 +102,7 @@
                                 <button @click="active = {{ $i }}"
                                     :class="active === {{ $i }} ? 'ring-2 ring-primary opacity-100' : 'opacity-50 hover:opacity-80'"
                                     class="w-16 h-11 rounded-lg overflow-hidden shrink-0 transition">
-                                    <img src="{{ $s->url }}" alt="" class="w-full h-full object-cover">
+                                    <img src="{{ asset('storage/' . $s->url) }}" alt="" class="w-full h-full object-cover">
                                 </button>
                             @endforeach
                         </div>
@@ -246,3 +257,7 @@
     </div>
 </div>
 @endsection
+
+@push('scripts')
+    @vite('resources/js/pages/product-detail.js')
+@endpush
