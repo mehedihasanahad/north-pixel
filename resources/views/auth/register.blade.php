@@ -14,8 +14,8 @@
         <div class="bg-surface border border-white/8 rounded-2xl p-8 shadow-2xl">
 
             <div class="text-center mb-8">
-                <a href="{{ route('home') }}" class="inline-block">
-                    <img src="{{ asset('assets/images/logo.jpeg') }}" alt="{{ config('app.name') }}" class="h-12 w-auto rounded-xl mx-auto mb-4">
+                <a href="{{ route('home') }}" class="inline-flex justify-center mb-2">
+                    <x-logo size="lg" />
                 </a>
                 <h1 class="text-2xl font-bold text-white">{{ __('auth.register_heading') }}</h1>
                 <p class="text-muted text-sm mt-1">{{ __('auth.register_sub') }}</p>

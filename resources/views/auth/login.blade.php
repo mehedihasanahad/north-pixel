@@ -18,8 +18,8 @@
 
             {{-- Logo --}}
             <div class="text-center mb-8">
-                <a href="{{ route('home') }}" class="inline-block">
-                    <img src="{{ asset('assets/images/logo.jpeg') }}" alt="{{ config('app.name') }}" class="h-12 w-auto rounded-xl mx-auto mb-4">
+                <a href="{{ route('home') }}" class="inline-flex justify-center mb-2">
+                    <x-logo size="lg" />
                 </a>
                 <h1 class="text-2xl font-bold text-white">{{ __('auth.login_heading') }}</h1>
                 <p class="text-muted text-sm mt-1">{{ __('auth.login_sub') }}</p>

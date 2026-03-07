@@ -6,7 +6,7 @@
             {{-- Brand column --}}
             <div class="lg:col-span-2">
                 <a href="{{ route('home') }}" class="inline-flex mb-4">
-                    <img src="{{ asset('assets/images/logo.jpeg') }}" alt="{{ $settings['site_name'] ?? config('app.name') }}" class="h-12 w-auto rounded-xl object-contain">
+                    <x-logo size="lg" />
                 </a>
                 <p class="text-muted text-sm leading-relaxed max-w-xs">
                     {{ __('footer.tagline') }}

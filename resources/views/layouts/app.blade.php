@@ -51,8 +51,8 @@
     @endif
 
     {{-- Favicon --}}
-    <link rel="icon" type="image/jpeg" href="{{ $logoUrl }}">
-    <link rel="shortcut icon" href="{{ $logoUrl }}">
+    <link rel="icon" type="image/svg+xml" href="{{ asset('favicon.svg') }}">
+    <link rel="alternate icon" type="image/x-icon" href="{{ asset('favicon.ico') }}">
     <link rel="apple-touch-icon" href="{{ $logoUrl }}">
 
     {{-- Page-specific SEO (JSON-LD, extra meta) --}}

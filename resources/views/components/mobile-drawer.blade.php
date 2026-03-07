@@ -16,7 +16,7 @@
     {{-- Header --}}
     <div class="flex items-center justify-between mb-8">
         <a href="{{ route('home') }}" @click="$store.ui.closeDrawer()">
-            <img src="{{ asset('assets/images/logo.jpeg') }}" alt="{{ $settings['site_name'] ?? config('app.name') }}" class="h-9 w-auto rounded-lg object-contain">
+            <x-logo size="sm" />
         </a>
         <button @click="$store.ui.closeDrawer()"
             class="p-1.5 rounded-lg text-muted hover:text-white hover:bg-white/5 transition"
