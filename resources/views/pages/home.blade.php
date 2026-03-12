@@ -13,7 +13,7 @@
 @section('content')
 
 {{-- ── HERO ───────────────────────────────────────────────────── --}}
-<section class="relative min-h-screen flex flex-col justify-center overflow-hidden hero-glow pt-16"
+<section class="relative min-h-screen flex flex-col justify-start overflow-hidden hero-glow pt-16"
          aria-labelledby="hero-heading">
 
     {{-- Particle canvas --}}
@@ -32,7 +32,7 @@
     {{-- Grid lines decoration --}}
     <div class="hero-grid absolute inset-0 pointer-events-none" aria-hidden="true"></div>
 
-    <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 py-20 lg:py-28 grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+    <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 pt-4 pb-12 lg:py-20 grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
 
         {{-- ── LEFT: Copy ── --}}
         <div class="text-center lg:text-left">
@@ -72,7 +72,7 @@
 
             {{-- CTAs --}}
             <div id="hero-ctas" class="flex flex-wrap items-center justify-center lg:justify-start gap-3">
-                <a href="#products" class="btn-primary magnetic">
+                <a href="#services" class="btn-primary magnetic">
                     <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
                         <path d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/>
                     </svg>
@@ -86,7 +86,7 @@
         </div>
 
         {{-- ── RIGHT: Visual mockup ── --}}
-        <div id="hero-visual" class="relative flex items-center justify-center" aria-hidden="true">
+        <div id="hero-visual" class="hidden lg:flex relative items-center justify-center" aria-hidden="true">
 
             {{-- Glow backdrop --}}
             <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
@@ -210,167 +210,289 @@
 </section>
 
 
-{{-- ── STATS ──────────────────────────────────────────────────── --}}
-<section class="py-20 max-w-7xl mx-auto px-6" aria-labelledby="stats-heading">
-    <h2 id="stats-heading" class="sr-only">{{ app()->getLocale() === 'bn' ? 'আমাদের পরিসংখ্যান' : 'Our Numbers' }}</h2>
-    <div class="grid grid-cols-2 lg:grid-cols-4 gap-5">
+{{-- ── SERVICES ────────────────────────────────────────────────── --}}
+<section id="services" class="py-24 relative overflow-hidden" aria-labelledby="services-heading">
 
-        @php
-            $stats = [
-                ['count' => 50,   'suffix' => '+',   'label' => __('stats.products'),     'icon' => 'M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4',       'color' => 'from-primary/20 to-purple-500/10'],
-                ['count' => 500,  'suffix' => '+',   'label' => __('stats.clients'),      'icon' => 'M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2M9 11a4 4 0 100-8 4 4 0 000 8zM23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75', 'color' => 'from-accent/20 to-yellow-500/5'],
-                ['count' => 98,   'suffix' => '%',   'label' => __('stats.satisfaction'), 'icon' => 'M22 11.08V12a10 10 0 11-5.93-9.14M22 4L12 14.01l-3-3',                   'color' => 'from-green-500/20 to-emerald-500/5'],
-                ['value' => '24/7', 'label' => __('stats.support'), 'icon' => 'M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z', 'color' => 'from-blue-500/20 to-cyan-500/5'],
-            ];
-        @endphp
+    {{-- Background grid --}}
+    <div class="absolute inset-0 pointer-events-none" aria-hidden="true"
+         style="background-image:linear-gradient(rgba(124,58,237,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(124,58,237,0.04) 1px,transparent 1px);background-size:60px 60px;"></div>
 
-        @foreach($stats as $i => $stat)
-        <div class="stat-card reveal delay-{{ ($i+1)*100 }}">
-            {{-- Icon --}}
-            <div class="w-12 h-12 rounded-2xl bg-linear-to-br {{ $stat['color'] }} flex items-center justify-center mx-auto mb-4">
-                <svg width="22" height="22" fill="none" stroke="rgba(255,255,255,0.7)" stroke-width="1.8" viewBox="0 0 24 24">
-                    <path d="{{ $stat['icon'] }}"/>
-                </svg>
-            </div>
-            {{-- Number --}}
-            <div class="stat-number text-4xl font-extrabold text-white mb-1 transition-all duration-500">
-                @if(isset($stat['count']))
-                    <span data-count="{{ $stat['count'] }}">0</span>{{ $stat['suffix'] ?? '' }}
-                @else
-                    <span class="{{ app()->getLocale() === 'bn' ? 'bn' : '' }}">{{ $stat['value'] }}</span>
-                @endif
-            </div>
-            <p class="text-muted text-sm {{ app()->getLocale() === 'bn' ? 'bn' : '' }}">{{ $stat['label'] }}</p>
-        </div>
-        @endforeach
+    {{-- Ambient glows --}}
+    <div class="absolute top-1/4 -left-32 w-96 h-96 rounded-full pointer-events-none"
+         style="background:radial-gradient(circle,rgba(124,58,237,0.12) 0%,transparent 70%)" aria-hidden="true"></div>
+    <div class="absolute bottom-1/4 -right-32 w-96 h-96 rounded-full pointer-events-none"
+         style="background:radial-gradient(circle,rgba(245,158,11,0.09) 0%,transparent 70%)" aria-hidden="true"></div>
 
-    </div>
-</section>
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6">
 
-
-{{-- ── PRODUCTS ───────────────────────────────────────────────── --}}
-<section id="products" class="py-20 max-w-7xl mx-auto px-6"
-         aria-labelledby="products-heading"
-         x-data="{ filter: 'all' }">
-
-    {{-- Section header --}}
-    <div class="text-center mb-12 reveal">
-        <span class="section-label">
-            <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg>
-            {{ __('products.section_label') }}
-        </span>
-        <h2 id="products-heading" class="text-3xl sm:text-4xl font-extrabold text-white mb-4 {{ app()->getLocale() === 'bn' ? 'bn' : '' }}">
-            {{ __('products.heading') }}
-        </h2>
-        <p class="text-muted max-w-xl mx-auto {{ app()->getLocale() === 'bn' ? 'bn' : '' }}">
-            {{ __('products.sub') }}
-        </p>
-    </div>
-
-    {{-- Category filter --}}
-    @if($categories->count())
-    <div class="flex flex-wrap justify-center gap-2 mb-10 reveal delay-100">
-        <button @click="filter = 'all'"
-                :class="filter === 'all' ? 'active' : ''"
-                class="tech-pill px-4 py-1.5 text-sm font-medium">
-            {{ __('products.filter_all') }}
-        </button>
-        @foreach($categories as $cat)
-        <button @click="filter = '{{ $cat->slug }}'"
-                :class="filter === '{{ $cat->slug }}' ? 'active' : ''"
-                class="tech-pill px-4 py-1.5 text-sm font-medium">
-            {{ app()->getLocale() === 'bn' && $cat->name_bn ? $cat->name_bn : $cat->name_en }}
-        </button>
-        @endforeach
-    </div>
-    @endif
-
-    {{-- Products grid --}}
-    @if($products->count())
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            @foreach($products as $product)
-            <div x-show="filter === 'all' || filter === '{{ $product->category?->slug }}'"
-                 x-transition:enter="transition ease-out duration-300"
-                 x-transition:enter-start="opacity-0 scale-95"
-                 x-transition:enter-end="opacity-100 scale-100"
-                 class="reveal delay-{{ (($loop->index % 3) + 1) * 100 }}">
-                @include('components.product-card', ['product' => $product])
-            </div>
-            @endforeach
-        </div>
-
-        <div class="text-center mt-12 reveal">
-            <a href="/products" class="btn-ghost">
-                {{ __('common.view_all') }}
-                <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-            </a>
-        </div>
-    @else
-        <p class="text-center text-muted py-16 {{ app()->getLocale() === 'bn' ? 'bn' : '' }}">
-            {{ __('products.empty') }}
-        </p>
-    @endif
-
-</section>
-
-
-{{-- ── PROCESS ────────────────────────────────────────────────── --}}
-<section class="py-24 relative overflow-hidden" aria-labelledby="process-heading">
-    {{-- Subtle bg --}}
-    <div class="absolute inset-0 bg-linear-to-b from-surface/0 via-surface/60 to-surface/0 pointer-events-none"></div>
-
-    <div class="relative max-w-7xl mx-auto px-6">
         {{-- Header --}}
-        <div class="text-center mb-16 reveal">
+        <div class="text-center mb-16 reveal" id="services-header">
             <span class="section-label">
-                <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-                {{ __('process.section_label') }}
+                <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                    <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+                </svg>
+                {{ __('services.section_label') }}
             </span>
-            <h2 id="process-heading" class="text-3xl sm:text-4xl font-extrabold text-white {{ app()->getLocale() === 'bn' ? 'bn' : '' }}">
-                {{ __('process.heading') }}
+            <h2 id="services-heading"
+                class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white mb-4 {{ app()->getLocale() === 'bn' ? 'bn' : '' }}">
+                {{ __('services.heading') }}
             </h2>
+            <p class="text-muted max-w-2xl mx-auto text-base sm:text-lg {{ app()->getLocale() === 'bn' ? 'bn' : '' }}">
+                {{ __('services.sub') }}
+            </p>
         </div>
 
         @php
-            $steps = [
-                ['num' => 1, 'title' => __('process.step_1_title'), 'desc' => __('process.step_1_desc'),
-                 'icon' => 'M1 12S5 4 12 4s11 8 11 8-4 8-11 8S1 12 1 12zM12 9a3 3 0 100 6 3 3 0 000-6z',
-                 'color' => 'rgba(124,58,237,0.8)'],
-                ['num' => 2, 'title' => __('process.step_2_title'), 'desc' => __('process.step_2_desc'),
-                 'icon' => 'M9 11l3 3L22 4M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11',
-                 'color' => 'rgba(168,85,247,0.8)'],
-                ['num' => 3, 'title' => __('process.step_3_title'), 'desc' => __('process.step_3_desc'),
-                 'icon' => 'M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z',
-                 'color' => 'rgba(245,158,11,0.8)'],
-                ['num' => 4, 'title' => __('process.step_4_title'), 'desc' => __('process.step_4_desc'),
-                 'icon' => 'M13 2L3 14h9l-1 8 10-12h-9l1-8z',
-                 'color' => 'rgba(16,185,129,0.8)'],
-            ];
+        $locale = app()->getLocale();
+        $services = [
+            [
+                'id'    => 'web',
+                'title' => __('services.web_title'),
+                'desc'  => __('services.web_desc'),
+                'tags'  => [__('services.web_tag_1'), __('services.web_tag_2'), __('services.web_tag_3')],
+                'cta'   => __('services.cta'),
+                'href'  => route('services.web'),
+                'color_from' => '#7C3AED', 'color_to' => '#A855F7',
+                'glow'  => 'rgba(124,58,237,0.25)',
+                'icon_paths' => ['M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z', 'M16 2v4M8 2v4M2 10h20'],
+                'featured' => false,
+            ],
+            [
+                'id'    => 'mobile',
+                'title' => __('services.mobile_title'),
+                'desc'  => __('services.mobile_desc'),
+                'tags'  => [__('services.mobile_tag_1'), __('services.mobile_tag_2'), __('services.mobile_tag_3')],
+                'cta'   => __('services.cta'),
+                'href'  => route('services.mobile'),
+                'color_from' => '#A855F7', 'color_to' => '#EC4899',
+                'glow'  => 'rgba(168,85,247,0.25)',
+                'icon_paths' => ['M12 18h.01', 'M5 3h14a2 2 0 012 2v14a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2z'],
+                'featured' => false,
+            ],
+            [
+                'id'    => 'speedup',
+                'title' => __('services.speedup_title'),
+                'desc'  => __('services.speedup_desc'),
+                'tags'  => [__('services.speedup_tag_1'), __('services.speedup_tag_2'), __('services.speedup_tag_3')],
+                'cta'   => __('services.cta'),
+                'href'  => route('services.speedup'),
+                'color_from' => '#F59E0B', 'color_to' => '#F97316',
+                'glow'  => 'rgba(245,158,11,0.22)',
+                'icon_paths' => ['M13 2L3 14h9l-1 8 10-12h-9l1-8z'],
+                'featured' => false,
+            ],
+            [
+                'id'    => 'maintain',
+                'title' => __('services.maintain_title'),
+                'desc'  => __('services.maintain_desc'),
+                'tags'  => [__('services.maintain_tag_1'), __('services.maintain_tag_2'), __('services.maintain_tag_3')],
+                'cta'   => __('services.cta'),
+                'href'  => route('services.maintenance'),
+                'color_from' => '#10B981', 'color_to' => '#06B6D4',
+                'glow'  => 'rgba(16,185,129,0.22)',
+                'icon_paths' => ['M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z'],
+                'featured' => false,
+            ],
+            [
+                'id'    => 'ready',
+                'title' => __('services.ready_title'),
+                'desc'  => __('services.ready_desc'),
+                'tags'  => [__('services.ready_tag_1'), __('services.ready_tag_2'), __('services.ready_tag_3')],
+                'cta'   => __('services.ready_cta'),
+                'href'  => route('services.ready'),
+                'color_from' => '#7C3AED', 'color_to' => '#F59E0B',
+                'glow'  => 'rgba(124,58,237,0.3)',
+                'icon_paths' => ['M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4'],
+                'featured' => true,
+            ],
+        ];
         @endphp
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-4 relative">
-            {{-- Connecting line (desktop) --}}
-            <div class="hidden lg:block absolute top-10 left-[12.5%] right-[12.5%] h-px bg-white/6" aria-hidden="true">
-                <div class="process-line-fill h-full bg-linear-to-r from-primary via-purple-500 to-accent w-0 transition-all duration-[2s] ease-in-out" id="process-line"></div>
-            </div>
+        {{-- Top row: 2 large cards --}}
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mb-5">
+            @foreach(array_slice($services, 0, 2) as $i => $svc)
+            <div class="service-card group reveal delay-{{ ($i+1)*100 }}"
+                 data-service="{{ $svc['id'] }}"
+                 style="--svc-glow:{{ $svc['glow'] }}">
 
-            @foreach($steps as $i => $step)
-            <div class="process-step text-center reveal delay-{{ ($i+1)*100 }}">
-                {{-- Numbered icon --}}
-                <div class="process-icon relative">
-                    <span class="absolute -top-1 -right-1 w-5 h-5 rounded-full flex items-center justify-center text-xs font-black text-white"
-                          style="background: {{ $step['color'] }}">
-                        {{ $step['num'] }}
-                    </span>
-                    <svg width="26" height="26" fill="none" stroke="{{ $step['color'] }}" stroke-width="1.8" viewBox="0 0 24 24">
-                        <path d="{{ $step['icon'] }}"/>
-                    </svg>
+                {{-- Top gradient bar --}}
+                <div class="h-1 w-full rounded-t-2xl"
+                     style="background:linear-gradient(90deg,{{ $svc['color_from'] }},{{ $svc['color_to'] }})"></div>
+
+                <div class="p-7 lg:p-8">
+                    {{-- Icon circle --}}
+                    <div class="service-icon-wrap mb-5 w-14 h-14 rounded-2xl flex items-center justify-center"
+                         style="background:linear-gradient(135deg,{{ $svc['color_from'] }}22,{{ $svc['color_to'] }}11);border:1px solid {{ $svc['color_from'] }}33">
+                        <svg width="26" height="26" fill="none" stroke="{{ $svc['color_from'] }}" stroke-width="1.8" viewBox="0 0 24 24">
+                            @foreach($svc['icon_paths'] as $path)
+                            <path d="{{ $path }}"/>
+                            @endforeach
+                        </svg>
+                    </div>
+
+                    <h3 class="text-xl font-bold text-white mb-3 {{ $locale === 'bn' ? 'bn' : '' }}">{{ $svc['title'] }}</h3>
+                    <p class="text-muted text-sm leading-relaxed mb-5 {{ $locale === 'bn' ? 'bn' : '' }}">{{ $svc['desc'] }}</p>
+
+                    {{-- Tags --}}
+                    <div class="flex flex-wrap gap-2 mb-6">
+                        @foreach($svc['tags'] as $tag)
+                        <span class="text-xs px-2.5 py-1 rounded-full font-medium"
+                              style="background:{{ $svc['color_from'] }}18;border:1px solid {{ $svc['color_from'] }}30;color:{{ $svc['color_from'] }}">
+                            {{ $tag }}
+                        </span>
+                        @endforeach
+                    </div>
+
+                    <a href="{{ $svc['href'] }}" class="service-cta-link group/link inline-flex items-center gap-2 text-sm font-semibold"
+                       style="color:{{ $svc['color_from'] }}">
+                        {{ $svc['cta'] }}
+                        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"
+                             class="transition-transform duration-300 group-hover/link:translate-x-1">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </a>
                 </div>
-                <h3 class="font-bold text-white text-base mb-2 {{ app()->getLocale() === 'bn' ? 'bn' : '' }}">{{ $step['title'] }}</h3>
-                <p  class="text-muted text-sm leading-relaxed {{ app()->getLocale() === 'bn' ? 'bn' : '' }}">{{ $step['desc'] }}</p>
             </div>
             @endforeach
         </div>
+
+        {{-- Middle row: 2 cards --}}
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mb-5">
+            @foreach(array_slice($services, 2, 2) as $i => $svc)
+            <div class="service-card group reveal delay-{{ ($i+1)*150 }}"
+                 data-service="{{ $svc['id'] }}"
+                 style="--svc-glow:{{ $svc['glow'] }}">
+
+                <div class="h-1 w-full rounded-t-2xl"
+                     style="background:linear-gradient(90deg,{{ $svc['color_from'] }},{{ $svc['color_to'] }})"></div>
+
+                <div class="p-7 lg:p-8">
+                    <div class="service-icon-wrap mb-5 w-14 h-14 rounded-2xl flex items-center justify-center"
+                         style="background:linear-gradient(135deg,{{ $svc['color_from'] }}22,{{ $svc['color_to'] }}11);border:1px solid {{ $svc['color_from'] }}33">
+                        <svg width="26" height="26" fill="none" stroke="{{ $svc['color_from'] }}" stroke-width="1.8" viewBox="0 0 24 24">
+                            @foreach($svc['icon_paths'] as $path)
+                            <path d="{{ $path }}"/>
+                            @endforeach
+                        </svg>
+                    </div>
+
+                    <h3 class="text-xl font-bold text-white mb-3 {{ $locale === 'bn' ? 'bn' : '' }}">{{ $svc['title'] }}</h3>
+                    <p class="text-muted text-sm leading-relaxed mb-5 {{ $locale === 'bn' ? 'bn' : '' }}">{{ $svc['desc'] }}</p>
+
+                    <div class="flex flex-wrap gap-2 mb-6">
+                        @foreach($svc['tags'] as $tag)
+                        <span class="text-xs px-2.5 py-1 rounded-full font-medium"
+                              style="background:{{ $svc['color_from'] }}18;border:1px solid {{ $svc['color_from'] }}30;color:{{ $svc['color_from'] }}">
+                            {{ $tag }}
+                        </span>
+                        @endforeach
+                    </div>
+
+                    <a href="{{ $svc['href'] }}" class="service-cta-link group/link inline-flex items-center gap-2 text-sm font-semibold"
+                       style="color:{{ $svc['color_from'] }}">
+                        {{ $svc['cta'] }}
+                        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"
+                             class="transition-transform duration-300 group-hover/link:translate-x-1">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+            @endforeach
+        </div>
+
+        {{-- Bottom row: Ready-Made — full width featured card --}}
+        @php $svc = $services[4]; @endphp
+        <div class="service-card service-card--featured group reveal delay-200"
+             data-service="{{ $svc['id'] }}"
+             style="--svc-glow:{{ $svc['glow'] }}">
+
+            {{-- Gradient top border --}}
+            <div class="h-1 w-full rounded-t-2xl"
+                 style="background:linear-gradient(90deg,{{ $svc['color_from'] }},#A855F7,{{ $svc['color_to'] }})"></div>
+
+            <div class="grid lg:grid-cols-2 gap-0">
+                {{-- Left copy --}}
+                <div class="p-8 lg:p-10 flex flex-col justify-center">
+                    {{-- Featured badge --}}
+                    <div class="inline-flex items-center gap-1.5 self-start mb-4 px-3 py-1 rounded-full text-xs font-bold tracking-wide uppercase"
+                         style="background:linear-gradient(135deg,rgba(124,58,237,0.2),rgba(245,158,11,0.1));border:1px solid rgba(124,58,237,0.3);color:#C4B5FD">
+                        <span class="w-1.5 h-1.5 rounded-full bg-accent animate-pulse"></span>
+                        {{ $locale === 'bn' ? 'সবচেয়ে জনপ্রিয়' : 'Most Popular' }}
+                    </div>
+
+                    <div class="service-icon-wrap mb-4 w-14 h-14 rounded-2xl flex items-center justify-center"
+                         style="background:linear-gradient(135deg,rgba(124,58,237,0.25),rgba(245,158,11,0.12));border:1px solid rgba(124,58,237,0.35)">
+                        <svg width="26" height="26" fill="none" stroke="#A855F7" stroke-width="1.8" viewBox="0 0 24 24">
+                            @foreach($svc['icon_paths'] as $path)
+                            <path d="{{ $path }}"/>
+                            @endforeach
+                        </svg>
+                    </div>
+
+                    <h3 class="text-2xl lg:text-3xl font-extrabold text-white mb-3 {{ $locale === 'bn' ? 'bn' : '' }}">{{ $svc['title'] }}</h3>
+                    <p class="text-muted leading-relaxed mb-5 {{ $locale === 'bn' ? 'bn' : '' }}">{{ $svc['desc'] }}</p>
+
+                    <div class="flex flex-wrap gap-2 mb-6">
+                        @foreach($svc['tags'] as $tag)
+                        <span class="text-xs px-2.5 py-1 rounded-full font-medium"
+                              style="background:rgba(124,58,237,0.15);border:1px solid rgba(124,58,237,0.3);color:#C4B5FD">
+                            {{ $tag }}
+                        </span>
+                        @endforeach
+                    </div>
+
+                    <a href="{{ $svc['href'] }}" class="btn-primary magnetic self-start">
+                        <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                            <path d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/>
+                        </svg>
+                        {{ $svc['cta'] }}
+                    </a>
+                </div>
+
+                {{-- Right visual: animated product grid preview --}}
+                <div class="hidden lg:flex items-center justify-center p-8 lg:p-10 relative overflow-hidden"
+                     style="background:rgba(124,58,237,0.04)" aria-hidden="true">
+
+                    {{-- Glow --}}
+                    <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+                        <div class="w-64 h-64 rounded-full"
+                             style="background:radial-gradient(circle,rgba(124,58,237,0.15) 0%,transparent 70%)"></div>
+                    </div>
+
+                    <div class="relative w-full max-w-sm space-y-3">
+                        {{-- Mini product cards --}}
+                        @foreach([
+                            ['from-primary/20 to-purple-500/10','E-Commerce Store'],
+                            ['from-accent/20 to-yellow-500/10','Restaurant App'],
+                            ['from-green-500/20 to-emerald-500/10','Portfolio CMS'],
+                        ] as $j => $mini)
+                        <div class="flex items-center gap-3 rounded-xl px-4 py-3 border border-white/6 service-mini-card"
+                             style="background:var(--color-surface-2);animation-delay:{{ $j * 0.2 }}s">
+                            <div class="w-10 h-10 rounded-lg bg-linear-to-br {{ $mini[0] }} flex items-center justify-center shrink-0">
+                                <svg width="16" height="16" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="1.5" viewBox="0 0 24 24">
+                                    <rect x="3" y="3" width="18" height="18" rx="2"/>
+                                    <path d="M3 9h18M9 21V9"/>
+                                </svg>
+                            </div>
+                            <div class="flex-1 min-w-0">
+                                <p class="text-white text-sm font-semibold truncate">{{ $mini[1] }}</p>
+                                <p class="text-muted text-xs">{{ $locale === 'bn' ? 'লাইভ প্রিভিউ সহ' : 'Live preview included' }}</p>
+                            </div>
+                        </div>
+                        @endforeach
+
+                        {{-- CTA hint --}}
+                        <div class="text-center pt-2">
+                            <span class="text-muted text-xs">
+                                {{ $locale === 'bn' ? '৫০+ প্রোডাক্ট দেখতে প্রস্তুত' : '50+ products ready to explore' }}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
 </section>
 

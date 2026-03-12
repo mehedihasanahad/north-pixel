@@ -207,6 +207,57 @@ function initMagnetic() {
 }
 
 // ─────────────────────────────────────────────────────────────
+// SERVICES
+// ─────────────────────────────────────────────────────────────
+function initServices() {
+    const cards = gsap.utils.toArray('.service-card');
+    if (!cards.length) return;
+
+    // Staggered entrance
+    gsap.set(cards, { opacity: 0, y: 50, scale: 0.97 });
+    ScrollTrigger.create({
+        trigger: '#services',
+        start: 'top 72%',
+        once: true,
+        onEnter: () => {
+            gsap.to(cards, {
+                opacity: 1, y: 0, scale: 1,
+                duration: 0.7,
+                stagger: 0.1,
+                ease: 'power3.out',
+            });
+        },
+    });
+
+    // Subtle icon bob on scroll scrub
+    document.querySelectorAll('.service-icon-wrap').forEach((icon, i) => {
+        gsap.to(icon, {
+            y: -6,
+            repeat: -1,
+            yoyo: true,
+            duration: 2.5 + (i % 3) * 0.4,
+            ease: 'sine.inOut',
+            delay: i * 0.3,
+        });
+    });
+
+    // Number counter for featured card tags ("50+")
+    // nothing needed — already handled by stat counters if added
+
+    // Animate the connecting top-bar width on hover (desktop)
+    if (!window.matchMedia('(pointer:coarse)').matches) {
+        cards.forEach(card => {
+            const bar = card.querySelector('.h-1');
+            if (!bar) return;
+            const origW = bar.style.background;
+            card.addEventListener('mouseenter', () => {
+                gsap.fromTo(bar, { scaleX: 0, transformOrigin: 'left' }, { scaleX: 1, duration: 0.5, ease: 'power2.out' });
+            });
+        });
+    }
+}
+
+// ─────────────────────────────────────────────────────────────
 // PROCESS STEPS
 // ─────────────────────────────────────────────────────────────
 function initProcess() {
@@ -267,6 +318,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initStats();
     initTilt();
     initMagnetic();
+    initServices();
     initProcess();
     initParallax();
     initTestimonials();

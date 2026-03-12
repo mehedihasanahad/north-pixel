@@ -7,6 +7,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CustomRequestController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\AboutController;
+use App\Http\Controllers\ServiceController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -20,6 +21,14 @@ Route::post('/custom-request', [CustomRequestController::class, 'store'])->name(
 Route::get('/custom-request/success', [CustomRequestController::class, 'success'])->name('custom-request.success');
 
 Route::get('/about', [AboutController::class, 'index'])->name('about');
+
+Route::prefix('services')->name('services.')->group(function () {
+    Route::get('/website-development',        [ServiceController::class, 'webDev'])->name('web');
+    Route::get('/mobile-app-development',     [ServiceController::class, 'mobileApp'])->name('mobile');
+    Route::get('/website-speed-optimization', [ServiceController::class, 'speedOpt'])->name('speedup');
+    Route::get('/website-maintenance',        [ServiceController::class, 'maintenance'])->name('maintenance');
+    Route::get('/ready-made-websites',        [ServiceController::class, 'readyMade'])->name('ready');
+});
 
 Route::get('/contact', [ContactController::class, 'index'])->name('contact');
 Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
