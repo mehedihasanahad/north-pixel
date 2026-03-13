@@ -10,7 +10,7 @@
         $siteName    = $settings['site_name']        ?? config('app.name');
         $siteDesc    = $settings['meta_description']  ?? '';
         $siteUrl     = rtrim(config('app.url'), '/');
-        $logoUrl     = asset('assets/images/logo.jpeg');
+        $logoUrl     = asset('assets/images/logo.svg');
         $pageTitle   = trim($__env->yieldContent('title'));
         $fullTitle   = $pageTitle ? $pageTitle . ' — ' . $siteName : $siteName;
         $pageDesc    = trim($__env->yieldContent('description')) ?: $siteDesc;

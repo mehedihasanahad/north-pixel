@@ -11,13 +11,13 @@
 @section('title', $title)
 @section('description', $short)
 @section('og_type', 'product')
-@section('og_image', $product->thumbnail_url ?: asset('assets/images/logo.jpeg'))
+@section('og_image', $product->thumbnail_url ?: asset('assets/images/logo.svg'))
 
 @push('seo')
 @php
     $siteUrl   = rtrim(config('app.url'), '/');
     $productUrl = $siteUrl . '/products/' . $product->slug;
-    $imageUrl   = $product->thumbnail_url ?: asset('assets/images/logo.jpeg');
+    $imageUrl   = $product->thumbnail_url ?: asset('assets/images/logo.svg');
     $priceBdt   = number_format((float) $product->price_bdt, 2, '.', '');
 @endphp
 <script type="application/ld+json">
