@@ -1,4 +1,8 @@
 {
+  "_ScrollTrigger-B2uKOqL4.js": {
+    "file": "assets/ScrollTrigger-B2uKOqL4.js",
+    "name": "ScrollTrigger"
+  },
   "node_modules/photoswipe/dist/photoswipe.esm.js": {
     "file": "assets/photoswipe.esm-BXDdABy_.js",
     "name": "photoswipe.esm",
@@ -6,7 +10,7 @@
     "isDynamicEntry": true
   },
   "resources/css/app.css": {
-    "file": "assets/app-BTAxaITW.css",
+    "file": "assets/app-4l-2dmf6.css",
     "src": "resources/css/app.css",
     "isEntry": true,
     "name": "app",
@@ -15,16 +19,19 @@
     ]
   },
   "resources/js/app.js": {
-    "file": "assets/app-CsBC9tHW.js",
+    "file": "assets/app-CWs_hSzo.js",
     "name": "app",
     "src": "resources/js/app.js",
     "isEntry": true
   },
   "resources/js/pages/home.js": {
-    "file": "assets/home-CwWRabJJ.js",
+    "file": "assets/home-BXk-MssP.js",
     "name": "home",
     "src": "resources/js/pages/home.js",
-    "isEntry": true
+    "isEntry": true,
+    "imports": [
+      "_ScrollTrigger-B2uKOqL4.js"
+    ]
   },
   "resources/js/pages/product-detail.js": {
     "file": "assets/product-detail-BtEQqERx.js",
@@ -36,6 +43,15 @@
     ],
     "css": [
       "assets/product-detail-DZU1WGtr.css"
+    ]
+  },
+  "resources/js/pages/services.js": {
+    "file": "assets/services-VQOKGa45.js",
+    "name": "services",
+    "src": "resources/js/pages/services.js",
+    "isEntry": true,
+    "imports": [
+      "_ScrollTrigger-B2uKOqL4.js"
     ]
   }
 }

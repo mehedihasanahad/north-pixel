@@ -73,7 +73,6 @@
                         <div class="w-5 h-5 rounded-full" style="background:{{ $i===0 ? 'rgba(168,85,247,0.5)' : 'rgba(255,255,255,0.08)' }}"></div>
                         @endfor
                     </div>
-                    <div class="absolute -top-2 -right-2 bg-green-400 text-black text-[9px] font-black px-1.5 py-0.5 rounded-full">Android</div>
                 </div>
                 {{-- Phone 2 (iOS) —taller --}}
                 <div id="phone-frame-2" class="relative w-36 rounded-[2.2rem] border-2 shadow-2xl overflow-hidden" style="height:290px;background:var(--color-surface-2);border-color:rgba(236,72,153,0.3)">
@@ -98,8 +97,10 @@
                             @endfor
                         </div>
                     </div>
-                    <div class="absolute -top-2 -right-2 text-white text-[9px] font-black px-1.5 py-0.5 rounded-full" style="background:rgba(236,72,153,0.8)">iOS</div>
                 </div>
+                {{-- Platform badges — outside phone frames so overflow-hidden doesn't clip them --}}
+                <div class="absolute -top-3 left-0 z-10 text-white text-[9px] font-black px-2 py-1 rounded-full pointer-events-none" style="background:rgba(124,58,237,0.85)">Android</div>
+                <div class="absolute -top-3 right-0 z-10 text-white text-[9px] font-black px-2 py-1 rounded-full pointer-events-none" style="background:rgba(236,72,153,0.85)">iOS</div>
             </div>
             {{-- Badges --}}
             <div class="absolute top-4 left-0 glass rounded-2xl px-3 py-2 shadow-xl border border-white/8">

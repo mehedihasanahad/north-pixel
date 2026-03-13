@@ -58,9 +58,7 @@
                     @endforeach
                     <br>
                 @endif
-                <span id="hero-typewriter"
-                      data-text="{{ __('hero.headline_accent') }}"
-                      class="grad-text inline-block {{ app()->getLocale() === 'bn' ? 'bn' : '' }}"></span><span class="typewriter-cursor grad-text" style="opacity:0">|</span>
+                <span class="grad-text inline-block {{ app()->getLocale() === 'bn' ? 'bn' : '' }}">{{ __('hero.headline_accent') }}</span>
             </h1>
 
             {{-- Sub --}}

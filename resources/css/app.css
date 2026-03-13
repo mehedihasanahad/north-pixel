@@ -218,10 +218,11 @@
 
     /* ── Glass ── */
     .glass {
-        background: rgba(17,17,24,0.75);
-        backdrop-filter: blur(20px);
-        -webkit-backdrop-filter: blur(20px);
-        border: 1px solid var(--color-border);
+        background: rgba(9,9,11,0.55);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        border-bottom: 1px solid rgba(255,255,255,0.07);
+        box-shadow: 0 4px 20px rgba(0,0,0,0.45);
     }
 
     /* ── Product card ── */

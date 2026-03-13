@@ -75,7 +75,6 @@ function initHero() {
         '.hero-word',
         '#hero-sub',
         '#hero-ctas',
-        '#hero-trust',
         '#hero-visual',
         '#hero-badge-live',
         '#hero-badge-clients',
@@ -97,8 +96,6 @@ function initHero() {
 
       .to('#hero-sub',   { opacity: 1, y: 0, duration: 0.55 }, '-=0.25')
       .to('#hero-ctas',  { opacity: 1, y: 0, duration: 0.55 }, '-=0.35')
-      .to('#hero-trust', { opacity: 1, y: 0, duration: 0.45 }, '-=0.3')
-
       // Visual slides in from right on desktop, from below on mobile
       .to('#hero-visual', {
           opacity: 1, y: 0, duration: 0.75, ease: 'power2.out',
@@ -122,33 +119,6 @@ function initHero() {
     });
 }
 
-// ─────────────────────────────────────────────────────────────
-// TYPEWRITER — starts after headline words are visible
-// ─────────────────────────────────────────────────────────────
-function initTypewriter() {
-    const el     = document.getElementById('hero-typewriter');
-    const cursor = document.querySelector('.typewriter-cursor');
-    if (!el) return;
-
-    const text = el.dataset.text || '';
-
-    // Delay enough for word stagger to finish (words * 70ms + ~500ms buffer)
-    const delay = Math.max(1400, document.querySelectorAll('.hero-word').length * 70 + 500);
-
-    setTimeout(() => {
-        // Make the element visible
-        el.style.opacity = '1';
-        if (cursor) cursor.style.opacity = '1';
-
-        let i = 0;
-        function tick() {
-            el.textContent = text.slice(0, i);
-            i++;
-            if (i <= text.length) setTimeout(tick, 52 + Math.random() * 28);
-        }
-        tick();
-    }, delay);
-}
 
 // ─────────────────────────────────────────────────────────────
 // STAT COUNTERS
@@ -306,15 +276,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Reduced motion — just show everything immediately
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-        const tw = document.getElementById('hero-typewriter');
-        if (tw) { tw.textContent = tw.dataset.text ?? ''; tw.style.opacity = '1'; }
         document.querySelectorAll('.testimonial-card').forEach(c => c.style.opacity = '1');
         return;
     }
 
     initParticles();
     initHero();
-    initTypewriter();
     initStats();
     initTilt();
     initMagnetic();

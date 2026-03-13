@@ -52,7 +52,9 @@
             x-text="$store.ui.modalProduct?.isPrebook ? '{{ __('modal.heading_prebook') }}' : '{{ __('modal.heading') }}'">
         </h2>
         <p class="text-muted text-sm mb-6"
-           x-text="$store.ui.modalProduct?.isPrebook ? '{{ __('modal.sub_prebook') }}' : '{{ __('modal.sub') }}'">
+           data-sub="{{ __('modal.sub') }}"
+           data-sub-prebook="{{ __('modal.sub_prebook') }}"
+           x-text="$store.ui.modalProduct?.isPrebook ? $el.dataset.subPrebook : $el.dataset.sub"
         </p>
 
         <div class="space-y-3">
