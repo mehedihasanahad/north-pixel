@@ -1,9 +1,9 @@
-{{-- Sticky navbar — glass on scroll via Alpine --}}
+{{-- Sticky navbar — opacity ramps up with scroll --}}
 <header
-    x-data="{ scrolled: false }"
-    x-init="window.addEventListener('scroll', () => { scrolled = window.scrollY > 40 }, { passive: true })"
-    :class="scrolled ? 'glass shadow-lg shadow-black/30' : 'bg-transparent'"
-    class="fixed top-0 inset-x-0 z-50 transition-all duration-300"
+    x-data="{ opacity: 0 }"
+    x-init="window.addEventListener('scroll', () => { opacity = Math.min(1, window.scrollY / 120) }, { passive: true })"
+    :style="`background: rgba(9,9,11,${(opacity * 0.75).toFixed(2)}); backdrop-filter: blur(${Math.round(opacity * 12)}px); -webkit-backdrop-filter: blur(${Math.round(opacity * 12)}px); border-bottom: 1px solid rgba(255,255,255,${(opacity * 0.07).toFixed(2)}); box-shadow: 0 4px 20px rgba(0,0,0,${(opacity * 0.4).toFixed(2)})`"
+    class="fixed top-0 inset-x-0 z-50 transition-[background,box-shadow] duration-150"
     role="banner"
 >
     <nav class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between" aria-label="Main navigation">
