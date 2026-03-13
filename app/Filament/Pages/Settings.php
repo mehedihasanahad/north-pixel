@@ -93,6 +93,20 @@ class Settings extends Page implements HasForms
                             ->rows(3),
                     ]),
 
+                Forms\Components\Section::make('Google Sign-In')
+                    ->description('Credentials from Google Cloud Console → APIs & Services → Credentials')
+                    ->schema([
+                        Forms\Components\TextInput::make('google_client_id')
+                            ->label('Google Client ID')
+                            ->placeholder('xxxxxxxxxxxx.apps.googleusercontent.com')
+                            ->helperText('Authorized redirect URI must be: ' . url('/auth/google/callback')),
+                        Forms\Components\TextInput::make('google_client_secret')
+                            ->label('Google Client Secret')
+                            ->password()
+                            ->revealable()
+                            ->placeholder('GOCSPX-…'),
+                    ]),
+
                 Forms\Components\Section::make('System')
                     ->schema([
                         Forms\Components\TextInput::make('preview_token_ttl_hours')
