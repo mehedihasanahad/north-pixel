@@ -47,13 +47,34 @@
     <meta name="twitter:description" content="{{ $pageDesc }}">
     <meta name="twitter:image"       content="{{ $pageOgImage }}">
     @if(!empty($settings['twitter_url']))
-        <meta name="twitter:site" content="@{{ ltrim(basename($settings['twitter_url']), '@') }}">
+        <meta name="twitter:site" content="{{ '@' . ltrim(basename($settings['twitter_url']), '@') }}">
     @endif
 
-    {{-- Favicon --}}
+    {{-- Favicon & manifest --}}
     <link rel="icon" type="image/svg+xml" href="{{ asset('favicon.svg') }}">
     <link rel="alternate icon" type="image/x-icon" href="{{ asset('favicon.ico') }}">
     <link rel="apple-touch-icon" href="{{ $logoUrl }}">
+    <link rel="manifest" href="{{ asset('site.webmanifest') }}">
+    <meta name="theme-color" content="#7C3AED">
+
+    {{-- JSON-LD: Organization (sitewide) --}}
+    <script type="application/ld+json">{!! json_encode([
+        '@context'     => 'https://schema.org',
+        '@type'        => 'Organization',
+        'name'         => $siteName,
+        'url'          => $siteUrl,
+        'logo'         => $logoUrl,
+        'description'  => $siteDesc,
+        'contactPoint' => [
+            '@type'             => 'ContactPoint',
+            'contactType'       => 'customer support',
+            'availableLanguage' => ['English', 'Bengali'],
+        ],
+        'sameAs' => array_values(array_filter([
+            $settings['facebook_url'] ?? '',
+            $settings['twitter_url']  ?? '',
+        ])),
+    ], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) !!}</script>
 
     {{-- Page-specific SEO (JSON-LD, extra meta) --}}
     @stack('seo')
