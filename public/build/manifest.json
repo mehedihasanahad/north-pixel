@@ -1,8 +1,4 @@
 {
-  "_ScrollTrigger-B2uKOqL4.js": {
-    "file": "assets/ScrollTrigger-B2uKOqL4.js",
-    "name": "ScrollTrigger"
-  },
   "node_modules/photoswipe/dist/photoswipe.esm.js": {
     "file": "assets/photoswipe.esm-BXDdABy_.js",
     "name": "photoswipe.esm",
@@ -10,7 +6,7 @@
     "isDynamicEntry": true
   },
   "resources/css/app.css": {
-    "file": "assets/app-B4AI0k0M.css",
+    "file": "assets/app-CekeL0ui.css",
     "src": "resources/css/app.css",
     "isEntry": true,
     "name": "app",
@@ -25,13 +21,10 @@
     "isEntry": true
   },
   "resources/js/pages/home.js": {
-    "file": "assets/home-BXk-MssP.js",
+    "file": "assets/home-DUL6hsMn.js",
     "name": "home",
     "src": "resources/js/pages/home.js",
-    "isEntry": true,
-    "imports": [
-      "_ScrollTrigger-B2uKOqL4.js"
-    ]
+    "isEntry": true
   },
   "resources/js/pages/product-detail.js": {
     "file": "assets/product-detail-BtEQqERx.js",
@@ -46,12 +39,9 @@
     ]
   },
   "resources/js/pages/services.js": {
-    "file": "assets/services-VQOKGa45.js",
+    "file": "assets/services-DyVenZCf.js",
     "name": "services",
     "src": "resources/js/pages/services.js",
-    "isEntry": true,
-    "imports": [
-      "_ScrollTrigger-B2uKOqL4.js"
-    ]
+    "isEntry": true
   }
 }

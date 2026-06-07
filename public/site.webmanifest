@@ -8,14 +8,14 @@
     "theme_color": "#7C3AED",
     "icons": [
         {
-            "src": "/assets/images/logo.svg",
+            "src": "/assets/images/north-pixel-logo.jpg",
             "sizes": "192x192",
-            "type": "image/svg+xml"
+            "type": "image/jpeg"
         },
         {
-            "src": "/assets/images/logo.svg",
+            "src": "/assets/images/north-pixel-logo.jpg",
             "sizes": "512x512",
-            "type": "image/svg+xml"
+            "type": "image/jpeg"
         }
     ]
 }

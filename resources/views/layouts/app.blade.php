@@ -10,7 +10,7 @@
         $siteName    = $settings['site_name']        ?? config('app.name');
         $siteDesc    = $settings['meta_description']  ?? '';
         $siteUrl     = rtrim(config('app.url'), '/');
-        $logoUrl     = asset('assets/images/logo.svg');
+        $logoUrl     = asset('assets/images/north-pixel-logo.jpg');
         $pageTitle   = trim($__env->yieldContent('title'));
         $fullTitle   = $pageTitle ? $pageTitle . ' — ' . $siteName : $siteName;
         $pageDesc    = trim($__env->yieldContent('description')) ?: $siteDesc;
@@ -51,11 +51,10 @@
     @endif
 
     {{-- Favicon & manifest --}}
-    <link rel="icon" type="image/svg+xml" href="{{ asset('favicon.svg') }}">
-    <link rel="alternate icon" type="image/x-icon" href="{{ asset('favicon.ico') }}">
+    <link rel="icon" type="image/jpeg" href="{{ $logoUrl }}">
     <link rel="apple-touch-icon" href="{{ $logoUrl }}">
     <link rel="manifest" href="{{ asset('site.webmanifest') }}">
-    <meta name="theme-color" content="#7C3AED">
+    <meta name="theme-color" content="#EF1B3F">
 
     {{-- JSON-LD: Organization (sitewide) --}}
     <script type="application/ld+json">{!! json_encode([

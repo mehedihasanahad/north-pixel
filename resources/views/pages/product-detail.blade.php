@@ -1,23 +1,22 @@
 @extends('layouts.app')
 
 @php
-    $locale     = app()->getLocale();
-    $title      = $locale === 'bn' && $product->title_bn       ? $product->title_bn       : $product->title_en;
-    $desc       = $locale === 'bn' && $product->description_bn ? $product->description_bn : $product->description_en;
-    $short      = $locale === 'bn' && $product->short_desc_bn  ? $product->short_desc_bn  : $product->short_desc_en;
-    $catName    = $locale === 'bn' && $product->category?->name_bn ? $product->category->name_bn : $product->category?->name_en;
+    $title   = $product->title_en;
+    $desc    = $product->description_en;
+    $short   = $product->short_desc_en;
+    $catName = $product->category?->name_en ?: $product->category?->name_bn;
 @endphp
 
 @section('title', $title)
 @section('description', $short)
 @section('og_type', 'product')
-@section('og_image', $product->thumbnail_url ?: asset('assets/images/logo.svg'))
+@section('og_image', $product->thumbnail_url ?: asset('assets/images/north-pixel-logo.jpg'))
 
 @push('seo')
 @php
-    $siteUrl   = rtrim(config('app.url'), '/');
+    $siteUrl    = rtrim(config('app.url'), '/');
     $productUrl = $siteUrl . '/products/' . $product->slug;
-    $imageUrl   = $product->thumbnail_url ?: asset('assets/images/logo.svg');
+    $imageUrl   = $product->thumbnail_url ?: asset('assets/images/north-pixel-logo.jpg');
     $priceBdt   = number_format((float) $product->price_bdt, 2, '.', '');
 @endphp
 <script type="application/ld+json">
@@ -52,22 +51,25 @@
 @endpush
 
 @section('content')
-<div class="pt-28 pb-20">
-    <div class="max-w-7xl mx-auto px-6">
-
+<div class="bg-surface pt-[70px] border-b border-black/6">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 py-6">
         {{-- Breadcrumb --}}
-        <nav class="flex items-center gap-2 text-sm text-muted mb-8" aria-label="Breadcrumb">
-            <a href="{{ route('home') }}" class="hover:text-white transition">{{ __('nav.home') }}</a>
-            <span>/</span>
-            <a href="{{ route('products.index') }}" class="hover:text-white transition">{{ __('nav.products') }}</a>
-            <span>/</span>
-            <span class="text-white {{ $locale === 'bn' ? 'bn' : '' }}">{{ $title }}</span>
+        <nav class="flex items-center gap-2 text-sm text-muted" aria-label="Breadcrumb">
+            <a href="{{ route('home') }}" class="hover:text-text transition">{{ __('nav.home') }}</a>
+            <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" class="shrink-0 opacity-40"><path d="M9 18l6-6-6-6"/></svg>
+            <a href="{{ route('products.index') }}" class="hover:text-text transition">{{ __('nav.products') }}</a>
+            <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" class="shrink-0 opacity-40"><path d="M9 18l6-6-6-6"/></svg>
+            <span class="text-text font-medium truncate max-w-[200px]">{{ $title }}</span>
         </nav>
+    </div>
+</div>
 
+<div class="bg-white pb-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 py-10">
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-10">
 
             {{-- Left: screenshots + description --}}
-            <div class="lg:col-span-2 space-y-8">
+            <div class="lg:col-span-2 space-y-6">
 
                 {{-- Pass screenshot URLs to JS --}}
                 @if($product->screenshots->count())
@@ -77,30 +79,32 @@
                 @endif
 
                 {{-- Main screenshot / thumbnail --}}
-                <div class="rounded-2xl overflow-hidden border border-white/8 bg-surface aspect-video"
+                <div class="rounded-2xl overflow-hidden border border-black/8 bg-surface"
                      x-data="{ active: 0 }">
 
-                    @if($product->screenshots->count())
-                        <img :src="[
-                                @foreach($product->screenshots as $i => $s) '{{ asset("storage/" . $s->url) }}'{{ !$loop->last ? ',' : '' }} @endforeach
-                             ][active]"
-                             alt="{{ $title }}"
-                             class="w-full h-full object-cover cursor-zoom-in"
-                             @click="window._lightbox && window._lightbox.loadAndOpen(active)">
-                    @elseif($product->thumbnail_url)
-                        <img src="{{ asset('storage/' . $product->thumbnail_url) }}" alt="{{ $title }}"
-                             class="w-full h-full object-cover cursor-zoom-in"
-                             @click="window._lightbox && window._lightbox.loadAndOpen(0)">
-                    @else
-                        <div class="w-full h-full flex items-center justify-center shimmer"></div>
-                    @endif
+                    <div class="aspect-video">
+                        @if($product->screenshots->count())
+                            <img :src="[
+                                    @foreach($product->screenshots as $i => $s) '{{ asset("storage/" . $s->url) }}'{{ !$loop->last ? ',' : '' }} @endforeach
+                                 ][active]"
+                                 alt="{{ $title }}"
+                                 class="w-full h-full object-cover cursor-zoom-in"
+                                 @click="window._lightbox && window._lightbox.loadAndOpen(active)">
+                        @elseif($product->thumbnail_url)
+                            <img src="{{ asset('storage/' . $product->thumbnail_url) }}" alt="{{ $title }}"
+                                 class="w-full h-full object-cover cursor-zoom-in"
+                                 @click="window._lightbox && window._lightbox.loadAndOpen(0)">
+                        @else
+                            <div class="w-full h-full flex items-center justify-center bg-surface shimmer"></div>
+                        @endif
+                    </div>
 
                     {{-- Thumbnail strip --}}
                     @if($product->screenshots->count() > 1)
-                        <div class="flex gap-2 p-3 bg-surface-2">
+                        <div class="flex gap-2 p-3 bg-surface border-t border-black/6">
                             @foreach($product->screenshots as $i => $s)
                                 <button @click="active = {{ $i }}"
-                                    :class="active === {{ $i }} ? 'ring-2 ring-primary opacity-100' : 'opacity-50 hover:opacity-80'"
+                                    :class="active === {{ $i }} ? 'ring-2 ring-primary opacity-100' : 'opacity-40 hover:opacity-70'"
                                     class="w-16 h-11 rounded-lg overflow-hidden shrink-0 transition">
                                     <img src="{{ asset('storage/' . $s->url) }}" alt="" class="w-full h-full object-cover">
                                 </button>
@@ -110,34 +114,30 @@
                 </div>
 
                 {{-- Description --}}
-                <div class="bg-surface border border-white/8 rounded-2xl p-7">
-                    <h2 class="text-white font-bold text-lg mb-5">Description</h2>
-                    <div class="prose prose-invert prose-sm max-w-none text-muted leading-relaxed {{ $locale === 'bn' ? 'bn' : '' }}">
+                <div class="bg-white border border-black/6 rounded-2xl p-7">
+                    <h2 class="text-text font-bold text-lg mb-5">Description</h2>
+                    <div class="prose prose-sm max-w-none text-muted leading-relaxed">
                         {!! $desc !!}
                     </div>
                 </div>
 
                 {{-- Features --}}
                 @if($product->features->count())
-                <div class="bg-surface border border-white/8 rounded-2xl p-7">
-                    <h2 class="text-white font-bold text-lg mb-5">Features</h2>
+                <div class="bg-white border border-black/6 rounded-2xl p-7">
+                    <h2 class="text-text font-bold text-lg mb-5">Features</h2>
                     <ul class="space-y-3">
                         @foreach($product->features as $feature)
-                            @php
-                                $ftitle = $locale === 'bn' && $feature->title_bn ? $feature->title_bn : $feature->title_en;
-                                $fdesc  = $locale === 'bn' && $feature->desc_bn  ? $feature->desc_bn  : $feature->desc_en;
-                            @endphp
-                            <li class="flex items-start gap-3">
-                                <span class="mt-0.5 w-5 h-5 rounded-full bg-primary/15 flex items-center justify-center shrink-0">
-                                    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#7C3AED" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg>
-                                </span>
-                                <div>
-                                    <p class="text-white text-sm font-medium {{ $locale === 'bn' ? 'bn' : '' }}">{{ $ftitle }}</p>
-                                    @if($fdesc)
-                                        <p class="text-muted text-xs mt-0.5 {{ $locale === 'bn' ? 'bn' : '' }}">{{ $fdesc }}</p>
-                                    @endif
-                                </div>
-                            </li>
+                        <li class="flex items-start gap-3">
+                            <span class="mt-0.5 w-5 h-5 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
+                                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#EF1B3F" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg>
+                            </span>
+                            <div>
+                                <p class="text-text text-sm font-medium">{{ $feature->title_en }}</p>
+                                @if($feature->desc_en)
+                                    <p class="text-muted text-xs mt-0.5">{{ $feature->desc_en }}</p>
+                                @endif
+                            </div>
+                        </li>
                         @endforeach
                     </ul>
                 </div>
@@ -146,7 +146,7 @@
 
             {{-- Right: sticky order panel --}}
             <div class="lg:col-span-1">
-                <div class="bg-surface border border-white/8 rounded-2xl p-6 sticky top-24 space-y-5">
+                <div class="bg-white border border-black/6 rounded-2xl p-6 sticky top-24 space-y-5 shadow-sm">
 
                     {{-- Badges --}}
                     <div class="flex gap-2 flex-wrap">
@@ -163,19 +163,19 @@
 
                     {{-- Category --}}
                     @if($catName)
-                        <p class="text-primary text-xs font-semibold uppercase tracking-widest {{ $locale === 'bn' ? 'bn' : '' }}">{{ $catName }}</p>
+                        <p class="text-primary text-xs font-semibold uppercase tracking-widest">{{ $catName }}</p>
                     @endif
 
                     {{-- Title --}}
-                    <h1 class="text-white font-bold text-xl leading-snug {{ $locale === 'bn' ? 'bn' : '' }}">{{ $title }}</h1>
+                    <h1 class="text-text font-bold text-xl leading-snug">{{ $title }}</h1>
 
                     {{-- Short desc --}}
-                    <p class="text-muted text-sm leading-relaxed {{ $locale === 'bn' ? 'bn' : '' }}">{{ $short }}</p>
+                    <p class="text-muted text-sm leading-relaxed">{{ $short }}</p>
 
                     {{-- Price --}}
-                    <div class="py-4 border-t border-b border-white/8">
+                    <div class="py-4 border-t border-b border-black/8">
                         <p class="text-muted text-xs mb-1">{{ __('products.price_from') }}</p>
-                        <p class="text-white font-bold text-3xl">
+                        <p class="text-text font-extrabold text-3xl">
                             ৳{{ number_format($product->price_bdt, 0) }}
                         </p>
                     </div>
@@ -198,8 +198,7 @@
                                     {{ __('products.preview') }}
                                 </a>
                             @else
-                                <a href="{{ route('login') }}"
-                                   class="btn-ghost w-full justify-center py-3">
+                                <a href="{{ route('login') }}" class="btn-ghost w-full justify-center py-3">
                                     <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M1 12S5 4 12 4s11 8 11 8-4 8-11 8S1 12 1 12z"/><circle cx="12" cy="12" r="3"/></svg>
                                     {{ __('products.preview') }}
                                 </a>
@@ -214,7 +213,7 @@
 
                     {{-- Tech stack --}}
                     @if($product->techStack->count())
-                        <div class="pt-4 border-t border-white/8">
+                        <div class="pt-4 border-t border-black/8">
                             <p class="text-muted text-xs font-medium uppercase tracking-widest mb-3">Tech Stack</p>
                             <div class="flex flex-wrap gap-2">
                                 @foreach($product->techStack as $tech)
@@ -226,12 +225,12 @@
 
                     {{-- Tags --}}
                     @if($product->tags->count())
-                        <div class="pt-4 border-t border-white/8">
+                        <div class="pt-4 border-t border-black/8">
                             <p class="text-muted text-xs font-medium uppercase tracking-widest mb-3">Tags</p>
                             <div class="flex flex-wrap gap-2">
                                 @foreach($product->tags as $tag)
                                     <a href="{{ route('products.index', ['search' => $tag->tag]) }}"
-                                       class="text-xs px-2.5 py-1 rounded-full border border-white/10 text-muted hover:text-white hover:border-white/20 transition">
+                                       class="text-xs px-2.5 py-1 rounded-full border border-black/10 text-muted hover:text-text hover:border-black/20 transition">
                                         #{{ $tag->tag }}
                                     </a>
                                 @endforeach
@@ -245,7 +244,7 @@
         {{-- Related products --}}
         @if($related->count())
         <div class="mt-16">
-            <h2 class="text-white font-bold text-xl mb-6">Related Products</h2>
+            <h2 class="text-text font-bold text-xl mb-6">Related Products</h2>
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 @foreach($related as $rp)
                     @include('components.product-card', ['product' => $rp])
@@ -256,6 +255,7 @@
 
     </div>
 </div>
+
 @endsection
 
 @push('scripts')
