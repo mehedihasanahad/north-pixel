@@ -1,0 +1,1 @@
+document.addEventListener("DOMContentLoaded",()=>{const r=document.querySelectorAll(".metric-bar");if(!r.length)return;const n=new IntersectionObserver(e=>{e.forEach(o=>{if(!o.isIntersecting)return;const t=o.target,s=t.style.getPropertyValue("--target-w")||"0%";setTimeout(()=>{t.style.width=s},200),n.unobserve(t)})},{threshold:.3});r.forEach(e=>n.observe(e))});
