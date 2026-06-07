@@ -600,11 +600,11 @@
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
             @php
             $testimonials = [
-                ['name' => 'Rahim Uddin',   'role' => 'E-commerce Owner, Dhaka',
+                ['name' => 'Saleh Ahmed',   'role' => 'E-commerce Owner, Dhaka',
                  'text' => 'The ready-made e-commerce solution saved us months of development time and cost. The code quality is exceptional and the post-launch support has been outstanding.'],
-                ['name' => 'Sarah Ahmed',   'role' => 'Co-Founder, SaaS Startup',
+                ['name' => 'Aminul Islam',   'role' => 'Co-Founder, SaaS Startup',
                  'text' => 'We launched our SaaS platform in under a week using their product. Clean architecture, great documentation, and a team that actually responds when you need them.'],
-                ['name' => 'Karim Hassan', 'role' => 'Owner, Restaurant Chain',
+                ['name' => 'Dipankar Roy', 'role' => 'Owner, Restaurant Chain',
                  'text' => 'Their custom restaurant management system replaced three different tools we were using. Operations are smoother, errors are down, and staff love how easy it is to use.'],
             ];
             @endphp
