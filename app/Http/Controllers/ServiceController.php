@@ -18,14 +18,54 @@ class ServiceController extends Controller
         return view('pages.services.mobile-app-development');
     }
 
-    public function speedOpt(): View
+    public function domain(): View
     {
-        return view('pages.services.website-speed-optimization');
+        return view('pages.services.domain-hosting');
+    }
+
+    public function cloud(): View
+    {
+        return view('pages.services.cloud-management');
+    }
+
+    public function devops(): View
+    {
+        return view('pages.services.devops-server-management');
+    }
+
+    public function security(): View
+    {
+        return view('pages.services.cyber-security');
+    }
+
+    public function graphics(): View
+    {
+        return view('pages.services.graphics-design');
+    }
+
+    public function marketing(): View
+    {
+        return view('pages.services.digital-marketing');
+    }
+
+    public function aiAutomation(): View
+    {
+        return view('pages.services.ai-automation');
     }
 
     public function maintenance(): View
     {
         return view('pages.services.website-maintenance');
+    }
+
+    public function serverMaintenance(): View
+    {
+        return view('pages.services.server-maintenance');
+    }
+
+    public function speedOpt(): View
+    {
+        return view('pages.services.website-speed-optimization');
     }
 
     public function readyMade(): View

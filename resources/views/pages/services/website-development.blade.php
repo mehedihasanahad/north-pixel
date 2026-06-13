@@ -188,62 +188,6 @@
 </section>
 
 
-{{-- ── PRICING ── --}}
-<section class="py-24 bg-white" aria-labelledby="pricing-heading">
-    <div class="max-w-5xl mx-auto px-4 sm:px-6">
-        <div class="text-center mb-14 reveal">
-            <p class="text-xs font-semibold tracking-widest uppercase text-muted mb-3">{{ __('svc_web.pricing_label') }}</p>
-            <h2 id="pricing-heading" class="text-3xl sm:text-4xl font-extrabold text-text mb-3">{{ __('svc_web.pricing_heading') }}</h2>
-            <p class="text-muted">{{ __('svc_web.pricing_sub') }}</p>
-        </div>
-        @php
-        $pkgs = [
-            ['name'=>__('svc_web.pkg_1_name'),'price'=>__('svc_web.pkg_1_price'),'desc'=>__('svc_web.pkg_1_desc'),
-             'color'=>'#EF1B3F','featured'=>false,
-             'perks'=>['Landing page / 5-page site','Mobile responsive','SEO basics','Contact form','1 round of revisions']],
-            ['name'=>__('svc_web.pkg_2_name'),'price'=>__('svc_web.pkg_2_price'),'desc'=>__('svc_web.pkg_2_desc'),
-             'color'=>'#EF1B3F','featured'=>true,
-             'perks'=>['Full-stack web app','Auth system','Admin panel','API integrations','Deployment + SSL','3 rounds of revisions']],
-            ['name'=>__('svc_web.pkg_3_name'),'price'=>__('svc_web.pkg_3_price'),'desc'=>__('svc_web.pkg_3_desc'),
-             'color'=>'#F59E0B','featured'=>false,
-             'perks'=>['Unlimited complexity','Multi-tenant / SaaS','Custom architecture','Dedicated engineer','Priority support','Custom timeline']],
-        ];
-        @endphp
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
-            @foreach($pkgs as $i => $pkg)
-            <div class="bg-white border rounded-2xl p-7 flex flex-col reveal delay-{{ ($i+1)*100 }}
-                 {{ $pkg['featured'] ? 'border-primary/30 shadow-lg shadow-primary/8' : 'border-black/8' }}">
-                @if($pkg['featured'])
-                <div class="inline-flex items-center gap-1.5 self-start mb-4 px-3 py-1 rounded-full text-xs font-bold uppercase"
-                     style="background:rgba(239,27,63,0.08);border:1px solid rgba(239,27,63,0.20);color:#EF1B3F">
-                    <span class="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></span>
-                    Most Popular
-                </div>
-                @endif
-                <p class="text-muted text-xs font-semibold uppercase tracking-wide mb-1">{{ $pkg['name'] }}</p>
-                <p class="text-3xl font-extrabold mb-1" style="color:{{ $pkg['color'] }}">{{ $pkg['price'] }}</p>
-                <p class="text-muted text-sm mb-5">{{ $pkg['desc'] }}</p>
-                <ul class="space-y-2.5 mb-7 flex-1">
-                    @foreach($pkg['perks'] as $perk)
-                    <li class="flex items-center gap-2.5 text-sm text-muted">
-                        <span class="w-4 h-4 rounded-full flex items-center justify-center shrink-0"
-                              style="background:{{ $pkg['color'] }}12;border:1px solid {{ $pkg['color'] }}25">
-                            <svg width="8" height="8" fill="none" stroke="{{ $pkg['color'] }}" stroke-width="3" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>
-                        </span>
-                        {{ $perk }}
-                    </li>
-                    @endforeach
-                </ul>
-                <a href="{{ route('custom-request') }}" class="{{ $pkg['featured'] ? 'btn-primary' : 'btn-ghost' }} w-full justify-center">
-                    Get Started
-                </a>
-            </div>
-            @endforeach
-        </div>
-    </div>
-</section>
-
-
 {{-- ── FAQ ── --}}
 <section class="py-20 bg-surface" aria-labelledby="faq-heading">
     <div class="max-w-3xl mx-auto px-4 sm:px-6">

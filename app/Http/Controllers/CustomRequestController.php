@@ -22,7 +22,6 @@ class CustomRequestController extends Controller
             'phone'               => ['required', 'string', 'max:20'],
             'project_type'        => ['required', 'in:' . implode(',', array_keys(CustomRequest::$projectTypes))],
             'project_description' => ['required', 'string', 'min:50'],
-            'budget'              => ['required', 'in:' . implode(',', array_keys(CustomRequest::$budgets))],
             'deadline'            => ['nullable', 'string', 'max:100'],
             'preferred_contact'   => ['required', 'in:whatsapp,messenger,email'],
             'reference_links'     => ['nullable', 'array', 'max:3'],

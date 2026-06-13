@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
-@section('title', 'North Pixel — Software Development Company in Bangladesh')
-@section('description', 'North Pixel builds custom web & mobile apps, business automation systems, AI-powered software, and ready-made solutions for businesses in Bangladesh. 500+ happy clients.')
+@section('title', 'North Pixel — One Stop IT Solution')
+@section('description', 'North Pixel is your One Stop IT Solution — web development, mobile apps, cloud management, cyber security, AI automation, digital marketing, and more. Trusted by businesses worldwide.')
 
 @section('content')
 
@@ -18,10 +18,10 @@
 
             {{-- Badge --}}
             <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full
-                 border border-black/10 bg-surface text-muted text-xs font-semibold
+                 border border-primary/25 bg-primary/6 text-primary text-xs font-semibold
                  tracking-wide uppercase mb-7">
                 <span class="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></span>
-                Software Solutions · Bangladesh
+                One Stop IT Solution
             </div>
 
             {{-- Headline --}}
@@ -43,9 +43,9 @@
                     Start Your Project
                     <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
                 </a>
-                <a href="{{ route('products.index') }}" class="btn-ghost">
+                {{-- <a href="{{ route('products.index') }}" class="btn-ghost">
                     Browse Ready-Made Software
-                </a>
+                </a> --}}
             </div>
 
             {{-- Trust indicators --}}
@@ -230,98 +230,55 @@
 
 
 {{-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-     SERVICES — 5 Business Areas
+     SERVICES — 11 International Services
      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ --}}
 <section id="services" class="py-24 bg-white" aria-labelledby="services-heading">
     <div class="max-w-7xl mx-auto px-4 sm:px-6">
 
         <div class="text-center mb-14 reveal">
-            <p class="text-xs font-semibold tracking-widest uppercase text-muted mb-3">What We Do</p>
+            <p class="text-xs font-semibold tracking-widest uppercase text-muted mb-3">Our Services</p>
             <h2 id="services-heading"
                 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-text mb-4">
-                Five Ways We Help<br class="hidden sm:block"> <span class="grad-text">Your Business Grow</span>
+                Everything Your Business<br class="hidden sm:block"> <span class="grad-text">Needs to Grow Online</span>
             </h2>
             <p class="text-muted max-w-2xl mx-auto text-base sm:text-lg">
-                From custom-built software to AI integration — we solve real business problems with technology that delivers measurable results.
+                From web development and cloud management to AI automation and cyber security — one team, all your IT needs covered.
             </p>
         </div>
 
         @php
         $services = [
-            [
-                'title' => 'Custom Software Development',
-                'desc'  => 'Web applications, mobile apps (iOS & Android), and desktop software — built from scratch to your exact specifications using modern, scalable technology stacks.',
-                'tags'  => ['Web Applications', 'Mobile Apps (iOS & Android)', 'Desktop Software'],
-                'href'  => route('services.web'),
-                'color' => '#C8102E',
-                'icon'  => 'M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4',
-                'featured' => false,
-            ],
-            [
-                'title' => 'Business Process Automation',
-                'desc'  => 'Eliminate repetitive manual tasks and reduce human error. We automate your workflows — from data entry and reporting to order processing and team notifications.',
-                'tags'  => ['Workflow Automation', 'System Integration', 'Reduce Manual Work'],
-                'href'  => route('custom-request'),
-                'color' => '#7C3AED',
-                'icon'  => 'M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15',
-                'featured' => false,
-            ],
-            [
-                'title' => 'AI Integration',
-                'desc'  => 'Add intelligence to your existing software. We integrate LLMs, chatbots, predictive analytics, and smart recommendation systems into your current platforms.',
-                'tags'  => ['LLM & Chatbots', 'Predictive Analytics', 'Smart Recommendations'],
-                'href'  => route('custom-request'),
-                'color' => '#1D4ED8',
-                'icon'  => 'M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z',
-                'featured' => false,
-            ],
-            [
-                'title' => 'Performance Improvement',
-                'desc'  => 'Slow software costs you customers and money. We audit, diagnose, and fix performance bottlenecks — improving load times, Core Web Vitals, and database efficiency.',
-                'tags'  => ['Speed Audit & Fix', 'Core Web Vitals', 'Database Optimization'],
-                'href'  => route('services.speedup'),
-                'color' => '#B45309',
-                'icon'  => 'M13 10V3L4 14h7v7l9-11h-7z',
-                'featured' => false,
-            ],
-            [
-                'title' => 'Ready-Made Software',
-                'desc'  => 'Launch today with a production-ready web application. Browse our catalog of 50+ professionally built products — live preview, one-click order, go live within 24 hours.',
-                'tags'  => ['50+ Products', 'Live Preview Available', 'Deploy in 24 Hours'],
-                'href'  => route('services.ready'),
-                'color' => '#C8102E',
-                'icon'  => 'M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4',
-                'featured' => true,
-            ],
+            ['title'=>'Web Development',          'desc'=>'Custom websites and web applications built with modern frameworks — fast, secure, and scalable.', 'href'=>route('services.web'),         'color'=>'#EF1B3F', 'icon'=>'M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4'],
+            ['title'=>'Mobile App Development',   'desc'=>'Native and cross-platform iOS & Android apps that deliver seamless user experiences.',           'href'=>route('services.mobile'),      'color'=>'#3B82F6', 'icon'=>'M12 18h.01M5 3h14a2 2 0 012 2v14a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2z'],
+            ['title'=>'Domain & Hosting',         'desc'=>'Domain registration, managed hosting, VPS, SSL certificates, and business email — all handled.',  'href'=>route('services.domain'),      'color'=>'#3B82F6', 'icon'=>'M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9'],
+            ['title'=>'Cloud Management',         'desc'=>'AWS, GCP, and Azure infrastructure design, migration, cost optimisation, and 24/7 monitoring.',   'href'=>route('services.cloud'),       'color'=>'#06B6D4', 'icon'=>'M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z'],
+            ['title'=>'DevOps & Server',          'desc'=>'CI/CD pipelines, infrastructure as code, container orchestration, and server automation.',        'href'=>route('services.devops'),      'color'=>'#F59E0B', 'icon'=>'M5 3l14 9-14 9V3z'],
+            ['title'=>'Cyber Security',           'desc'=>'Security audits, penetration testing, firewall setup, DDoS protection, and compliance consulting.','href'=>route('services.security'),    'color'=>'#EF1B3F', 'icon'=>'M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z'],
+            ['title'=>'Graphics & Branding',      'desc'=>'Logos, brand identities, UI/UX design, social media graphics, and motion design that convert.',   'href'=>route('services.graphics'),    'color'=>'#8B5CF6', 'icon'=>'M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z'],
+            ['title'=>'Digital Marketing',        'desc'=>'Data-driven SEO, PPC, social media, content, and email marketing to grow your online revenue.',   'href'=>route('services.marketing'),   'color'=>'#059669', 'icon'=>'M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10'],
+            ['title'=>'AI & Automation',          'desc'=>'Chatbots, workflow automation, document processing, and ML-powered features integrated into your systems.','href'=>route('services.ai'), 'color'=>'#8B5CF6', 'icon'=>'M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531'],
+            ['title'=>'Software Maintenance',     'desc'=>'Bug fixes, feature updates, code reviews, performance tuning, and long-term support for your applications.','href'=>route('services.maintenance'),'color'=>'#06B6D4','icon'=>'M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z'],
+            ['title'=>'Server Maintenance',       'desc'=>'24/7 uptime monitoring, patch management, automated backups, and incident response for your servers.','href'=>route('services.server'), 'color'=>'#059669', 'icon'=>'M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z'],
         ];
         @endphp
 
-        {{-- 2-col top row --}}
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mb-5">
-            @foreach(array_slice($services, 0, 2) as $i => $svc)
-            <div class="service-card reveal delay-{{ ($i+1)*100 }}">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 mb-5">
+            @foreach($services as $i => $svc)
+            <div class="service-card reveal delay-{{ min(($i%4+1)*100, 400) }}">
                 <div class="h-0.5 w-full" style="background:{{ $svc['color'] }}"></div>
-                <div class="p-7 lg:p-8">
-                    <div class="mb-5 w-11 h-11 rounded-xl flex items-center justify-center"
+                <div class="p-6">
+                    <div class="mb-4 w-10 h-10 rounded-xl flex items-center justify-center"
                          style="background:{{ $svc['color'] }}0D;border:1px solid {{ $svc['color'] }}20">
-                        <svg width="20" height="20" fill="none" stroke="{{ $svc['color'] }}" stroke-width="1.8" viewBox="0 0 24 24">
+                        <svg width="18" height="18" fill="none" stroke="{{ $svc['color'] }}" stroke-width="1.8" viewBox="0 0 24 24">
                             <path d="{{ $svc['icon'] }}"/>
                         </svg>
                     </div>
-                    <h3 class="text-base font-bold text-text mb-2">{{ $svc['title'] }}</h3>
-                    <p class="text-muted text-sm leading-relaxed mb-5">{{ $svc['desc'] }}</p>
-                    <div class="flex flex-wrap gap-1.5 mb-5">
-                        @foreach($svc['tags'] as $tag)
-                        <span class="text-xs px-2.5 py-1 rounded-full font-medium"
-                              style="background:{{ $svc['color'] }}0A;border:1px solid {{ $svc['color'] }}18;color:{{ $svc['color'] }}">
-                            {{ $tag }}
-                        </span>
-                        @endforeach
-                    </div>
-                    <a href="{{ $svc['href'] }}" class="inline-flex items-center gap-1.5 text-sm font-semibold transition-opacity hover:opacity-70"
+                    <h3 class="text-sm font-bold text-text mb-2">{{ $svc['title'] }}</h3>
+                    <p class="text-muted text-xs leading-relaxed mb-4">{{ $svc['desc'] }}</p>
+                    <a href="{{ $svc['href'] }}" class="inline-flex items-center gap-1 text-xs font-semibold transition-opacity hover:opacity-70"
                        style="color:{{ $svc['color'] }}">
                         Learn More
-                        <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                        <svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
                             <path d="M5 12h14M12 5l7 7-7 7"/>
                         </svg>
                     </a>
@@ -330,139 +287,13 @@
             @endforeach
         </div>
 
-        {{-- 2-col middle row --}}
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mb-5">
-            @foreach(array_slice($services, 2, 2) as $i => $svc)
-            <div class="service-card reveal delay-{{ ($i+1)*150 }}">
-                <div class="h-0.5 w-full" style="background:{{ $svc['color'] }}"></div>
-                <div class="p-7 lg:p-8">
-                    <div class="mb-5 w-11 h-11 rounded-xl flex items-center justify-center"
-                         style="background:{{ $svc['color'] }}0D;border:1px solid {{ $svc['color'] }}20">
-                        <svg width="20" height="20" fill="none" stroke="{{ $svc['color'] }}" stroke-width="1.8" viewBox="0 0 24 24">
-                            <path d="{{ $svc['icon'] }}"/>
-                        </svg>
-                    </div>
-                    <h3 class="text-base font-bold text-text mb-2">{{ $svc['title'] }}</h3>
-                    <p class="text-muted text-sm leading-relaxed mb-5">{{ $svc['desc'] }}</p>
-                    <div class="flex flex-wrap gap-1.5 mb-5">
-                        @foreach($svc['tags'] as $tag)
-                        <span class="text-xs px-2.5 py-1 rounded-full font-medium"
-                              style="background:{{ $svc['color'] }}0A;border:1px solid {{ $svc['color'] }}18;color:{{ $svc['color'] }}">
-                            {{ $tag }}
-                        </span>
-                        @endforeach
-                    </div>
-                    <a href="{{ $svc['href'] }}" class="inline-flex items-center gap-1.5 text-sm font-semibold transition-opacity hover:opacity-70"
-                       style="color:{{ $svc['color'] }}">
-                        Learn More
-                        <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
-                            <path d="M5 12h14M12 5l7 7-7 7"/>
-                        </svg>
-                    </a>
-                </div>
-            </div>
-            @endforeach
-        </div>
-
-        {{-- Featured: Ready-Made — full width --}}
-        @php $svc = $services[4]; @endphp
-        <div class="service-card service-card--featured reveal delay-200">
-            <div class="h-0.5 w-full" style="background:linear-gradient(90deg,#C8102E,#EF1B3F,#F59E0B)"></div>
-            <div class="grid lg:grid-cols-2 gap-0">
-                <div class="p-8 lg:p-10 flex flex-col justify-center">
-                    <div class="inline-flex items-center gap-1.5 self-start mb-4 px-3 py-1 rounded-full text-xs font-bold tracking-wide uppercase"
-                         style="background:rgba(200,16,46,0.08);border:1px solid rgba(200,16,46,0.20);color:#C8102E">
-                        <span class="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></span>
-                        Most Popular
-                    </div>
-                    <div class="mb-4 w-11 h-11 rounded-xl flex items-center justify-center"
-                         style="background:rgba(200,16,46,0.08);border:1px solid rgba(200,16,46,0.18)">
-                        <svg width="20" height="20" fill="none" stroke="#C8102E" stroke-width="1.8" viewBox="0 0 24 24">
-                            <path d="{{ $svc['icon'] }}"/>
-                        </svg>
-                    </div>
-                    <h3 class="text-2xl lg:text-3xl font-extrabold text-text mb-3">{{ $svc['title'] }}</h3>
-                    <p class="text-muted leading-relaxed mb-5">{{ $svc['desc'] }}</p>
-                    <div class="flex flex-wrap gap-1.5 mb-6">
-                        @foreach($svc['tags'] as $tag)
-                        <span class="text-xs px-2.5 py-1 rounded-full font-medium"
-                              style="background:rgba(200,16,46,0.07);border:1px solid rgba(200,16,46,0.16);color:#C8102E">
-                            {{ $tag }}
-                        </span>
-                        @endforeach
-                    </div>
-                    <a href="{{ $svc['href'] }}" class="btn-primary self-start">
-                        Browse Products
-                        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-                    </a>
-                </div>
-                <div class="hidden lg:flex items-center justify-center p-8 lg:p-10 bg-surface" aria-hidden="true">
-                    <div class="w-full max-w-sm space-y-3">
-                        @foreach([
-                            ['E-Commerce Store',    '#C8102E', 'Multi-vendor marketplace'],
-                            ['Restaurant App',       '#B45309', 'Online ordering & POS'],
-                            ['HR Management System', '#1D4ED8', 'Payroll & attendance'],
-                        ] as $mini)
-                        <div class="flex items-center gap-3 rounded-xl px-4 py-3 border border-black/6 bg-white shadow-sm">
-                            <div class="w-8 h-8 rounded-lg flex items-center justify-center shrink-0"
-                                 style="background:{{ $mini[1] }}0D">
-                                <svg width="14" height="14" fill="none" stroke="{{ $mini[1] }}" stroke-width="1.5" viewBox="0 0 24 24">
-                                    <rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/>
-                                </svg>
-                            </div>
-                            <div class="flex-1 min-w-0">
-                                <p class="text-text text-sm font-semibold truncate">{{ $mini[0] }}</p>
-                                <p class="text-muted text-xs">{{ $mini[2] }}</p>
-                            </div>
-                            <div class="w-2 h-2 rounded-full bg-green-400 shrink-0"></div>
-                        </div>
-                        @endforeach
-                        <p class="text-center text-muted text-xs pt-1">50+ products ready to explore</p>
-                    </div>
-                </div>
-            </div>
-        </div>
+        {{-- Featured: Ready-Made — hidden --}}
 
     </div>
 </section>
 
 
-{{-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-     OUR WORK / PORTFOLIO
-     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ --}}
-@if($products->isNotEmpty())
-<section class="py-24 bg-surface" aria-labelledby="work-heading">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6">
-
-        <div class="text-center mb-14 reveal">
-            <p class="text-xs font-semibold tracking-widest uppercase text-muted mb-3">Our Work</p>
-            <h2 id="work-heading" class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-text mb-4">
-                Ready-Made Software <span class="grad-text">Products</span>
-            </h2>
-            <p class="text-muted max-w-2xl mx-auto text-base">
-                Production-ready web applications you can preview live, order instantly, and deploy within 24 hours.
-                Fully customisable to match your brand and business needs.
-            </p>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            @foreach($products->take(6) as $i => $product)
-            <div class="reveal delay-{{ min(($i+1)*100, 400) }}">
-                <x-product-card :product="$product" />
-            </div>
-            @endforeach
-        </div>
-
-        <div class="text-center mt-10 reveal">
-            <a href="{{ route('products.index') }}" class="btn-ghost">
-                View All Products
-                <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-            </a>
-        </div>
-
-    </div>
-</section>
-@endif
+{{-- Ready-Made Software Products section — hidden --}}
 
 
 {{-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -593,7 +424,7 @@
         <div class="text-center mb-14 reveal">
             <p class="text-xs font-semibold tracking-widest uppercase text-muted mb-3">Client Stories</p>
             <h2 id="testimonials-heading" class="text-3xl sm:text-4xl font-extrabold text-text">
-                Trusted by Businesses<br><span class="grad-text">Across Bangladesh</span>
+                Trusted by Businesses<br><span class="grad-text">Around the World</span>
             </h2>
         </div>
 

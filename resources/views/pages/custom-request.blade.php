@@ -21,7 +21,6 @@
             {{-- Form --}}
             <div class="lg:col-span-2">
                 <div class="bg-white border border-black/6 rounded-2xl p-7 sm:p-10 shadow-sm">
-
                     <form method="POST" action="{{ route('custom-request.store') }}"
                           x-data="{ submitting: false }" @submit="submitting = true">
                         @csrf
@@ -100,36 +99,14 @@
                             @enderror
                         </div>
 
-                        {{-- Budget + Deadline --}}
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-5 mb-5">
-                            <div>
-                                <label class="block text-text text-sm font-medium mb-1.5">
-                                    {{ __('custom_request.budget') }} <span class="text-danger">*</span>
-                                </label>
-                                <div class="relative">
-                                    <select name="budget"
-                                        class="cr-input pr-9 appearance-none @error('budget') cr-input-error @enderror">
-                                        <option value="">{{ __('custom_request.budget_placeholder') }}</option>
-                                        @foreach(\App\Models\CustomRequest::$budgets as $value => $label)
-                                            <option value="{{ $value }}" {{ old('budget') === $value ? 'selected' : '' }}>{{ $label }}</option>
-                                        @endforeach
-                                    </select>
-                                    <div class="pointer-events-none absolute inset-y-0 right-3 flex items-center">
-                                        <svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" class="text-muted"><path d="M6 9l6 6 6-6"/></svg>
-                                    </div>
-                                </div>
-                                @error('budget')
-                                    <p class="cr-error">{{ $message }}</p>
-                                @enderror
-                            </div>
-                            <div>
-                                <label class="block text-text text-sm font-medium mb-1.5">
-                                    {{ __('custom_request.deadline') }}
-                                </label>
-                                <input type="text" name="deadline" value="{{ old('deadline') }}"
-                                    placeholder="{{ __('custom_request.deadline_placeholder') }}"
-                                    class="cr-input">
-                            </div>
+                        {{-- Deadline --}}
+                        <div class="mb-5">
+                            <label class="block text-text text-sm font-medium mb-1.5">
+                                {{ __('custom_request.deadline') }}
+                            </label>
+                            <input type="text" name="deadline" value="{{ old('deadline') }}"
+                                placeholder="{{ __('custom_request.deadline_placeholder') }}"
+                                class="cr-input">
                         </div>
 
                         {{-- Preferred contact --}}

@@ -59,10 +59,17 @@
                 <div x-show="open" x-collapse class="pl-8 mt-1 space-y-0.5">
                     @foreach([
                         ['href' => route('services.web'),         'label' => 'Web Development'],
-                        ['href' => route('services.mobile'),      'label' => 'Mobile Apps'],
-                        ['href' => route('services.speedup'),     'label' => 'Performance'],
-                        ['href' => route('services.maintenance'), 'label' => 'Maintenance'],
-                        ['href' => route('services.ready'),       'label' => 'Ready-Made Software'],
+                        ['href' => route('services.mobile'),      'label' => 'Mobile App Development'],
+                        ['href' => route('services.domain'),      'label' => 'Domain & Hosting'],
+                        ['href' => route('services.cloud'),       'label' => 'Cloud Management'],
+                        ['href' => route('services.devops'),      'label' => 'DevOps & Server'],
+                        ['href' => route('services.security'),    'label' => 'Cyber Security'],
+                        ['href' => route('services.graphics'),    'label' => 'Graphics & Branding'],
+                        ['href' => route('services.marketing'),   'label' => 'Digital Marketing'],
+                        ['href' => route('services.ai'),          'label' => 'AI & Automation'],
+                        ['href' => route('services.maintenance'), 'label' => 'Software Maintenance'],
+                        ['href' => route('services.server'),      'label' => 'Server Maintenance'],
+                        ['href' => route('services.ready'),       'label' => '★ Ready-Made Software'],
                     ] as $sub)
                     <a href="{{ $sub['href'] }}"
                        class="block px-3 py-2 rounded-lg text-sm text-muted hover:text-primary hover:bg-primary/5 transition"
@@ -97,13 +104,8 @@
     <div class="my-6 border-t border-black/6"></div>
 
     <div class="space-y-3">
-        @guest
-            <a href="/login"    class="btn-ghost w-full justify-center" style="padding:0.65rem" @click="$store.ui.closeDrawer()">{{ __('nav.login') }}</a>
-            <a href="/register" class="btn-primary w-full justify-center" style="padding:0.65rem" @click="$store.ui.closeDrawer()">{{ __('nav.register') }}</a>
-        @endguest
         @auth
             <a href="/dashboard" class="btn-ghost w-full justify-center" style="padding:0.65rem" @click="$store.ui.closeDrawer()">{{ __('nav.dashboard') }}</a>
         @endauth
-
     </div>
 </aside>

@@ -4,17 +4,17 @@
 @section('robots', 'noindex, nofollow')
 
 @section('content')
-<div class="min-h-screen pt-28 pb-20 flex items-center">
+<div class="min-h-screen pt-28 pb-20 flex items-center bg-surface">
     <div class="max-w-xl mx-auto px-4 sm:px-6 w-full text-center">
 
         {{-- Success icon --}}
-        <div class="w-20 h-20 rounded-2xl bg-success/10 border border-success/30 flex items-center justify-center mx-auto mb-6">
+        <div class="w-20 h-20 rounded-2xl bg-emerald-50 border border-emerald-200 flex items-center justify-center mx-auto mb-6">
             <svg width="36" height="36" fill="none" stroke="#10B981" stroke-width="2" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
             </svg>
         </div>
 
-        <h1 class="text-3xl font-bold text-white mb-3">{{ __('custom_request.success_heading') }}</h1>
+        <h1 class="text-3xl font-bold text-text mb-3">{{ __('custom_request.success_heading') }}</h1>
         <p class="text-muted leading-relaxed mb-8">{{ __('custom_request.success_sub') }}</p>
 
         {{-- CTA buttons --}}
@@ -37,7 +37,7 @@
             @endif
         </div>
 
-        <a href="{{ route('home') }}" class="text-muted text-sm hover:text-white transition">
+        <a href="{{ route('home') }}" class="text-muted text-sm hover:text-text transition">
             &larr; {{ __('custom_request.success_back') }}
         </a>
 

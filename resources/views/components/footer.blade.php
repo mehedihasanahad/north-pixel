@@ -11,8 +11,8 @@
                     <x-logo size="lg" />
                 </a>
                 <p class="text-white/50 text-sm leading-relaxed max-w-xs mb-6">
-                    We build custom software, automate business processes, and deliver
-                    ready-made solutions — trusted by 500+ businesses across Bangladesh.
+                    Your One Stop IT Solution — web development, cloud, security, AI, marketing,
+                    and more. Trusted by businesses worldwide.
                 </p>
 
                 {{-- Social links --}}
@@ -50,9 +50,16 @@
                 <ul class="space-y-3" role="list">
                     @foreach([
                         [route('services.web'),         'Web Development'],
-                        [route('services.mobile'),      'Mobile Apps'],
-                        [route('services.speedup'),     'Performance'],
-                        [route('services.maintenance'), 'Maintenance'],
+                        [route('services.mobile'),      'Mobile App Development'],
+                        [route('services.domain'),      'Domain & Hosting'],
+                        [route('services.cloud'),       'Cloud Management'],
+                        [route('services.devops'),      'DevOps & Server'],
+                        [route('services.security'),    'Cyber Security'],
+                        [route('services.graphics'),    'Graphics & Branding'],
+                        [route('services.marketing'),   'Digital Marketing'],
+                        [route('services.ai'),          'AI & Automation'],
+                        [route('services.maintenance'), 'Software Maintenance'],
+                        [route('services.server'),      'Server Maintenance'],
                         [route('services.ready'),       'Ready-Made Software'],
                     ] as [$href, $label])
                     <li>
