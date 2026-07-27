@@ -20,7 +20,7 @@
         $canonicalUrl = $siteUrl . request()->getPathInfo();
     @endphp
 
-    <title>North Pixel</title>
+    <title>{{ $fullTitle }}</title>
     <meta name="description" content="{{ $pageDesc }}">
     <meta name="robots" content="{{ $robots }}">
 
